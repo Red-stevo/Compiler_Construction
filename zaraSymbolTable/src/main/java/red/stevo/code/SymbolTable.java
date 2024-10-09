@@ -1,13 +1,11 @@
 package red.stevo.code;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Stack;
 
 @Data
-@AllArgsConstructor
 public class SymbolTable {
 
     private HashMap<String, Symbol> globalScope;
@@ -16,6 +14,11 @@ public class SymbolTable {
 
     private HashMap<String, Scope> scopeResolutionMap;
 
+    public SymbolTable(){
+        globalScope = new HashMap<>();
+        localScopeStack = new Stack<>();
+        scopeResolutionMap = new HashMap<>();
+    }
 
     /*Enter into a new scope; whether class, method or block scope.\
     * Create a new hashmap to store the symbols at that scope.*/
@@ -47,6 +50,13 @@ public class SymbolTable {
         return globalScope.get(tokenSymbolName);
     }
 
+    public void viewCurrentStackScopes(){
+        for (Scope scope : localScopeStack){
+            System.out.println(scope.getScopeType()+"\n\n"+scope.getScopeTable());
+        }
+    }
+
+
     /*Exist the current scope.This is done by popping the stack that holds the scopes.*/
     public void existScope(){
         if (!localScopeStack.isEmpty()){
@@ -55,7 +65,5 @@ public class SymbolTable {
             for (String tokenVariableName : scope.getScopeTable().keySet())
                 scopeResolutionMap.remove(tokenVariableName);
         }
-
-
     }
 }

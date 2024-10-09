@@ -2,6 +2,7 @@ package red.stevo.code;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.HashMap;
 
