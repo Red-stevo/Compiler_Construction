@@ -36,4 +36,14 @@ public class SymbolTable {
             scopeResolutionMap.put(tokenVariableName, localScopeStack.peek());
         }
     }
+
+    /*Using the scope resolution map, retrieve a symbol by the tokenVariable name.*/
+    public Symbol getSymbol(String tokenSymbolName){
+        Scope scope = scopeResolutionMap.get(tokenSymbolName);
+
+        if (scope != null)
+            return scope.getScopeTable().get(tokenSymbolName);
+
+        return globalScope.get(tokenSymbolName);
+    }
 }
