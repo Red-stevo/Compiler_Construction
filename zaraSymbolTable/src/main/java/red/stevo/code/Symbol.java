@@ -5,13 +5,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Symbol<T> {
+public class Symbol {
 
-    String tokenName; //variable name
+    private String tokenName; //variable name
 
-    T tokenValues; //value held by the variable
+    private Object tokenValues; //value held by the variable
 
-    String tokenDataType; //the variable datatype.
+    private String tokenDataType; //the variable datatype.
 
-    String Scope; //variable scope.
+    private String Scope; //variable scope.
+
 }
