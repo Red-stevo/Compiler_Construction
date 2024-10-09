@@ -46,4 +46,16 @@ public class SymbolTable {
 
         return globalScope.get(tokenSymbolName);
     }
+
+    /*Exist the current scope.This is done by popping the stack that holds the scopes.*/
+    public void existScope(){
+        if (!localScopeStack.isEmpty()){
+            Scope scope = localScopeStack.pop();
+
+            for (String tokenVariableName : scope.getScopeTable().keySet())
+                scopeResolutionMap.remove(tokenVariableName);
+        }
+
+
+    }
 }
