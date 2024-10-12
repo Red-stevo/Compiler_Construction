@@ -25,7 +25,6 @@ public class Main {
         symbolTable.enterNewScope("class");
         symbolTable.addSymbol("nestedClass", 42, "int", "local");
 
-        //System.out.println(symbolTable.getSymbol("funcVar"));
 
        symbolTable.viewCurrentStackScopes();
     }

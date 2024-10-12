@@ -59,6 +59,7 @@ public class SymbolTable {
 
     /*Exist the current scope.This is done by popping the stack that holds the scopes.*/
     public void existScope(){
+
         if (!localScopeStack.isEmpty()){
             Scope scope = localScopeStack.pop();
 
