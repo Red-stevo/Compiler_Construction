@@ -1,8 +1,8 @@
-package red.stevo.code;
+package red.stevo.code.SymbolTable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
+import red.stevo.code.SymbolTable.Symbol;
 
 import java.util.HashMap;
 

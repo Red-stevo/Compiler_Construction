@@ -1,4 +1,4 @@
-package red.stevo.code;
+package red.stevo.code.SymbolTable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
