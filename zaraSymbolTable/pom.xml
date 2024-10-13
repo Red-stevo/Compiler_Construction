@@ -15,6 +15,7 @@
     </properties>
 
     <dependencies>
+        <!-- Lombok dependency -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -22,14 +23,42 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- JFlex dependency -->
         <dependency>
             <groupId>de.jflex</groupId>
             <artifactId>jflex</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.1</version>
         </dependency>
 
-
+        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.13.2</version>
+        </dependency>
+        <dependency>
+            <groupId>red.stevo.code</groupId>
+            <artifactId>Zara</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>de.jflex</groupId>
+                <artifactId>jflex-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
+
