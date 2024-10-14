@@ -1,6 +1,5 @@
 package red.stevo.code;
 
-
 import java.io.FileReader;
 import java.io.IOException;
 
