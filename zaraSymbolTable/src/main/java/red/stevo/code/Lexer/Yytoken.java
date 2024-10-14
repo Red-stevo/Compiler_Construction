@@ -1,14 +1,13 @@
 package red.stevo.code.Lexer;
 
-
-import lombok.Getter;
+import lombok.Data;
 import lombok.ToString;
 
-@Getter
+@Data
 @ToString
 public class Yytoken {
-    private final String type;
-    private final String value;
+    private String type;
+    private String value;
 
     public Yytoken(String type, String value) {
         this.type = type;

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 %%
 
-%class LexerGenerator
+%class ZaraLexer
 %unicode
 %public
 %type Yytoken
