@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
         ZaraLexer zaraLexer = new ZaraLexer(new FileReader("/home/bree/repositories/Collaboration_Compiler_Construction/zaraSymbolTable/src/main/resources/file.zr"));
         zaraLexer.yylex();
     }
