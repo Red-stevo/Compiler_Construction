@@ -19,5 +19,13 @@ for(int i = 0 : i < 10: i++){
     int k = i - 1;
     do {
         out.print("Hello steve, How are u doing")
-    }while(k < 5)
+    }while(k < 5);
+}
+
+class newClass {
+    global const string name = "Brenda Mukami";
+
+    int functionName(){
+        const int name = "School Staff.";
+    }
 }
