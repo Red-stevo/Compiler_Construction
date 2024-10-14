@@ -17,7 +17,7 @@ import java.io.IOException;
 
 "\\*\\*"([^*]|\\*[^*])*"\\*\\*" { /* Ignore multi-line comments */ }
 
-("in" | "break" | "func" | "int" | "float" | "string" | "arr" | "stack" | "while" |"if" | "else" | "else-if" | "do" | "for" | "return" |"continue"){
+("in" | "break" | "func" | "int" | "float" | "string" | "arr" | "stack" | "while" |"if" | "else" | "else-if" | "do" | "for" | "return" |"continue")    {
     System.out.printf("KEYWORD \t %s\n", yytext());
 }
 
