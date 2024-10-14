@@ -6,6 +6,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class Yytoken {
+
     private String type;
     private String value;
 
@@ -13,5 +14,4 @@ public class Yytoken {
         this.type = type;
         this.value = value;
     }
-
 }

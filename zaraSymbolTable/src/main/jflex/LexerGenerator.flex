@@ -10,6 +10,7 @@ import java.io.IOException;
 %public
 %type Yytoken
 
+
 %%
 
 [ \t\n]+                     { /* Ignore whitespace */ }
@@ -21,12 +22,14 @@ import java.io.IOException;
     System.out.printf("KEYWORD \t %s\n", yytext());
 }
 
-[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?  {
-    System.out.printf("FLOAT \t %s\n", yytext());
-}
 [+-]?[0-9]+                             {
     System.out.printf("CONSTANT \t %s\n", yytext());
 }
+
+[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?  {
+    System.out.printf("FLOAT \t %s\n", yytext());
+}
+
 
 [A-Za-z][A-Za-z0-9]*                    {
     System.out.printf("IDENTIFIER \t %s\n", yytext());
