@@ -43,7 +43,7 @@ import java.io.IOException;
     System.out.printf("STRING LITERAL \t %s\n", yytext());
 }
 
-("+"|"-"|"*"|"/"|">"|"<"|"&&"|"=="|">="|"<="|"="|"!"|"||")                           {
+("+"|"-"|"*"|"/"|">"|"<"|"&&"|"=="|">="|"<="|"="|"!"|"||"|".")                           {
     System.out.printf("OPERATOR \t %s\n", yytext());
 }
 
