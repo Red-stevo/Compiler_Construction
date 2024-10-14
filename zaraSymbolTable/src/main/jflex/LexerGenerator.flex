@@ -35,7 +35,7 @@ import java.io.IOException;
     System.out.printf("IDENTIFIER \t %s\n", yytext());
 }
 
-[{},;()\[\]]                            {
+[{},;:()\[\]]                            {
     System.out.printf("PUNCTUATION \t %s\n", yytext());
 }
 
