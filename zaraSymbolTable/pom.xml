@@ -55,9 +55,6 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
-                        <configuration>
-                            <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

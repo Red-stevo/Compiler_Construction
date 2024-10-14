@@ -1,15 +1,15 @@
-
+package red.stevo.code.Lexer;
 import java.lang.System;
 import java.io.IOException;
 
 
 %%
 
+
 %class ZaraLexer
 %unicode
 %public
-%type Yytoken
-
+%type String
 
 %%
 
@@ -18,7 +18,7 @@ import java.io.IOException;
 
 "\\*\\*"([^*]|\\*[^*])*"\\*\\*" { /* Ignore multi-line comments */ }
 
-("in" | "break" | "func" | "int" | "float" | "string" | "arr" | "stack" | "while" |"if" | "else" | "else-if" | "do" | "for" | "return" |"continue")    {
+("in" | "break" | "int" | "float" | "string" | "arr" | "stack" | "while" |"if" | "else" | "else-if" | "do" | "for" | "return" |"continue")    {
     System.out.printf("KEYWORD \t %s\n", yytext());
 }
 
