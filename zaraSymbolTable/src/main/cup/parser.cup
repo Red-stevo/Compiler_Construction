@@ -1,0 +1,49 @@
+package red.stevo.code;
+
+
+import java_cup.runtime.*;
+
+options {
+    symbolsInterface = true;
+    symbolsName = sym;
+}
+
+terminal IDENTIFIER, CONSTANT, FLOAT;
+terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV;
+terminal PUNCTUATION, PUNCTUATION_LEFT, PUNCTUATION_RIGHT;
+
+
+precedence left OPERATOR_ADD, OPERATOR_SUB;
+precedence left OPERATOR_MUL, OPERATOR_DIV;
+
+nonterminal StmtList, Stmt, Expr, Term, Factor;
+
+
+start with StmtList;
+
+
+StmtList ::= StmtList Stmt
+           | /* empty */ ;
+
+
+Stmt ::= IDENTIFIER OPERATOR Expr PUNCTUATION
+       | Expr PUNCTUATION;
+
+Expr ::= Expr OPERATOR_ADD Term
+       | Expr OPERATOR_SUB Term
+       | Term;
+
+Term ::= Term OPERATOR_MUL Factor
+       | Term OPERATOR_DIV Factor
+       | Factor;
+
+Factor ::= CONSTANT
+         | IDENTIFIER
+         | FLOAT
+         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT;
+
+
+error ::= {
+    System.out.println("Syntax error: " + yytext());
+    System.exit(1);
+}

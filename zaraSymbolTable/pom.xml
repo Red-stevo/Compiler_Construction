@@ -30,22 +30,46 @@
             <version>1.9.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
+        <!-- CUP runtime dependency -->
         <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4-runtime</artifactId>
-            <version>4.13.2</version>
+            <groupId>com.github.vbmacher</groupId>
+            <artifactId>java-cup-runtime</artifactId>
+            <version>11b-20160615-3</version>
         </dependency>
-        <!--<dependency>
-            <groupId>red.stevo.code</groupId>
-            <artifactId>Zara</artifactId>
-            <version>1.0-SNAPSHOT</version>
+
+        <!-- CUP dependency -->
+        <dependency>
+            <groupId>java_cup</groupId>
+            <artifactId>java_cup</artifactId>
+            <version>0.9e</version>
         </dependency>
--->
+
     </dependencies>
 
     <build>
         <plugins>
+
+            <!-- Exec Maven Plugin for Java CUP -->
+            <plugin>
+                <groupId>com.github.vbmacher</groupId>
+                <artifactId>cup-maven-plugin</artifactId>
+                <version>11b-20160615-3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <symbolsName>sym</symbolsName>
+                  <!--  <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>-->
+                </configuration>
+            </plugin>
+
+
+
+            <!-- JFlex Maven Plugin -->
             <plugin>
                 <groupId>de.jflex</groupId>
                 <artifactId>jflex-maven-plugin</artifactId>
@@ -64,4 +88,3 @@
         </plugins>
     </build>
 </project>
-

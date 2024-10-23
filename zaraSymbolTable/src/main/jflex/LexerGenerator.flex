@@ -1,54 +1,62 @@
-
 import java.lang.System;
 import java.io.IOException;
-
+import java_cup.runtime.Symbol;
 
 %%
-
 
 %class ZaraLexer
 %unicode
 %public
-%type String
+%type Symbol
 
 %%
 
+// Ignore whitespace
 [ \t\n]+                     { /* Ignore whitespace */ }
-"#".*                       { /* Ignore comments */ }
-
+// Single-line comments
+"#".*                        { /* Ignore comments */ }
+// Multi-line comments
 "\\*\\*"([^*]|\\*[^*])*"\\*\\*" { /* Ignore multi-line comments */ }
 
-("const"|"global"|"in" | "break" | "int" | "float" | "string" | "arr" | "stack" | "while" |"if" | "else" | "else-if" | "do" | "for" | "return" |"continue"| "class")    {
-    System.out.printf("KEYWORD \t %s\n", yytext());
+// KEYWORDS
+("const"|"global"|"in" | "break" | "int" | "float" | "string" | "arr" | "stack" | "while" |"if" | "else" | "else-if" | "do" | "for" | "return" |"continue"| "class") {
+    return new Symbol(sym.KEYWORD, yytext());
 }
 
+// CONSTANTS (integers)
 [+-]?[0-9]+                             {
-    System.out.printf("CONSTANT \t %s\n", yytext());
+    return new Symbol(sym.CONSTANT, Integer.parseInt(yytext()));
 }
 
+// FLOATS
 [+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?  {
-    System.out.printf("FLOAT \t %s\n", yytext());
+    return new Symbol(sym.FLOAT, Double.parseDouble(yytext()));
 }
 
-
+// IDENTIFIERS
 [A-Za-z][A-Za-z0-9]*                    {
-    System.out.printf("IDENTIFIER \t %s\n", yytext());
+    return new Symbol(sym.IDENTIFIER, yytext());
 }
 
+// PUNCTUATION
 [{},;:()\[\]]                            {
-    System.out.printf("PUNCTUATION \t %s\n", yytext());
+    return new Symbol(sym.PUNCTUATION, yytext());
 }
 
-\"([^\"\\\n]|\\[btnrf\"\\])*\"          {
-    System.out.printf("STRING LITERAL \t %s\n", yytext());
+// STRING LITERALS
+\"([^\"\\\n]|\\[btnrf\"\\])*\"           {
+    return new Symbol(sym.STRING_LITERAL, yytext());
 }
 
-("+"|"-"|"*"|"/"|">"|"<"|"&&"|"=="|">="|"<="|"="|"!"|"||"|".")                           {
-    System.out.printf("OPERATOR \t %s\n", yytext());
+// OPERATORS
+("+"|"-"|"*"|"/"|">"|"<"|"&&"|"=="|">="|"<="|"="|"!"|"||"|".") {
+    return new Symbol(sym.OPERATOR, yytext());
 }
 
+// Error
 .                                       {
     System.out.printf("ERROR: Unrecognized character '%s'\n", yytext());
     System.exit(1);
 }
+
 
