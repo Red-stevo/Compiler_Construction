@@ -68,7 +68,7 @@
                 </executions>
                 <configuration>
                     <symbolsName>sym</symbolsName>
-                  <!--  <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>-->
+                    <outputDirectory>src/main/java</outputDirectory>
                 </configuration>
             </plugin>
 
@@ -89,7 +89,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>
+                    <outputDirectory>src/main/java</outputDirectory>
                     <includes>
                         <include>ZaraParser.jj</include>
                     </includes>
@@ -107,7 +107,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

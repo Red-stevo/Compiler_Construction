@@ -1,4 +1,4 @@
-package red.stevo.code.Parser;
+package red.stevo.code.Lexer;
 
 import java.lang.System;
 import java.io.IOException;
@@ -48,7 +48,7 @@ import java_cup.runtime.Symbol;
 
 
 // OPERATORS
-//(">"|"<"|"&&"|"=="|">="|"<="|"!"|"||"|".") {return new Symbol(sym.OPERATOR, yytext());}
+//(">"|"<"|"&&"|"=="|">="|"<="|"!"|"||"|"."|"|") {return new Symbol(sym.OPERATOR, yytext());}
 
 
 "+"   {return new Symbol(sym.OPERATOR_ADD);}
