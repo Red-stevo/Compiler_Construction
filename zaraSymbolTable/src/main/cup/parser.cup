@@ -20,7 +20,7 @@ terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN, OPERATO
 terminal OPERATOR_GREATER_EQUAL, OPERATOR_LESS_EQUAL, OPERATOR_NOT, OPERATOR_OR, OPERATOR_DOT, OPERATOR_EQUAL;
 terminal PUNCTUATION_CURLED_LEFT, PUNCTUATION_CURLED_RIGHT, PUNCTUATION_COMMA, PUNCTUATION_COLON;
 terminal PUNCTUATION_SQUARE_LEFT, PUNCTUATION_SQUARE_RIGHT, DATATYPE;
-terminal SEMI_COLON, PUNCTUATION_LEFT, PUNCTUATION_RIGHT, KEYWORD;
+terminal SEMI_COLON, PUNCTUATION_LEFT, PUNCTUATION_RIGHT, KEYWORD, OPERATOR_NOT_EQUAL;
 terminal CONST, GLOBAL, BREAK, IN, WHILE, IF, ELSE, ELSEIF, DO, FOR, RETURN, CONTINUE, CLASS;
 
 
@@ -35,20 +35,17 @@ start with StmtList;
 StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
            |  {:System.out.println("Parsed empty StmtList");:};
 
-
 //Right hand variable declaration.
-
 l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclaration ::= keywords IDENTIFIER"); :};
 
 keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :};
 
 key_1 ::= GLOBAL | {: System.out.println("Parsed key_1 ::= GLOBAL | "); :};
 key_2 ::= CONST  | {: System.out.println("Parsed key_2 ::= CONST |"); :};
-key_3 ::= DATATYPE {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
+key_3 ::= DATATYPE | {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
 
 //left hand size of a declaration.
 initialize ::= ASSIGN Expr initialize | SEMI_COLON {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
-
 
 Stmt ::= l_desclaration initialize {:System.out.println("Parsed Stmt ::= r_desclaration initialize");:};
 
@@ -64,7 +61,6 @@ Factor ::= CONSTANT {:System.out.println("Parsed Factor: CONSTANT");:}
          | IDENTIFIER {:System.out.println("Parsed Factor: IDENTIFIER");:}
          | FLOAT {:System.out.println("Parsed Factor: FLOAT");:}
          | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");:};
-
 
 
 

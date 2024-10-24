@@ -11,36 +11,37 @@ public interface sym {
   public static final int PUNCTUATION_COLON = 22;
   public static final int PUNCTUATION_LEFT = 27;
   public static final int PUNCTUATION_SQUARE_LEFT = 23;
-  public static final int CONST = 30;
-  public static final int CONTINUE = 41;
+  public static final int CONST = 31;
+  public static final int CONTINUE = 42;
   public static final int PUNCTUATION_SQUARE_RIGHT = 24;
   public static final int PUNCTUATION_RIGHT = 28;
-  public static final int FOR = 39;
+  public static final int FOR = 40;
   public static final int OPERATOR_GREATER = 10;
-  public static final int ELSEIF = 37;
+  public static final int ELSEIF = 38;
   public static final int OPERATOR_LESS_EQUAL = 14;
   public static final int OPERATOR_GREATER_EQUAL = 13;
   public static final int OPERATOR_SUB = 6;
-  public static final int IN = 33;
-  public static final int CLASS = 42;
+  public static final int IN = 34;
+  public static final int CLASS = 43;
   public static final int PUNCTUATION_CURLED_RIGHT = 20;
   public static final int DATATYPE = 25;
-  public static final int IF = 35;
+  public static final int IF = 36;
   public static final int ASSIGN = 9;
   public static final int EOF = 0;
-  public static final int RETURN = 40;
+  public static final int RETURN = 41;
   public static final int KEYWORD = 29;
   public static final int error = 1;
   public static final int SEMI_COLON = 26;
-  public static final int GLOBAL = 31;
-  public static final int BREAK = 32;
+  public static final int GLOBAL = 32;
+  public static final int BREAK = 33;
   public static final int CONSTANT = 3;
   public static final int PUNCTUATION_COMMA = 21;
   public static final int OPERATOR_LESS = 11;
+  public static final int OPERATOR_NOT_EQUAL = 30;
   public static final int OPERATOR_NOT = 15;
   public static final int OPERATOR_AND = 12;
-  public static final int ELSE = 36;
-  public static final int WHILE = 34;
+  public static final int ELSE = 37;
+  public static final int WHILE = 35;
   public static final int OPERATOR_DIV = 8;
   public static final int FLOAT = 4;
   public static final int OPERATOR_OR = 16;
@@ -49,7 +50,7 @@ public interface sym {
   public static final int PUNCTUATION_CURLED_LEFT = 19;
   public static final int OPERATOR_MUL = 7;
   public static final int OPERATOR_ADD = 5;
-  public static final int DO = 38;
+  public static final int DO = 39;
   public static final int IDENTIFIER = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -82,6 +83,7 @@ public interface sym {
   "PUNCTUATION_LEFT",
   "PUNCTUATION_RIGHT",
   "KEYWORD",
+  "OPERATOR_NOT_EQUAL",
   "CONST",
   "GLOBAL",
   "BREAK",

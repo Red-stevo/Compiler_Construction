@@ -10,8 +10,10 @@ import java_cup.runtime.Symbol;
 %unicode
 %public
 %type Symbol
-
+%line
+%column
 %%
+
 
 // Ignore whitespace
 [ \t\n]+                     { /* Ignore whitespace */ }
@@ -58,6 +60,7 @@ import java_cup.runtime.Symbol;
 // \"(?:[^"\\]|\\.)*" {return new Symbol(sym.STRING, yytext());}
 
 // OPERATORS
+"!="   {return new Symbol(sym.OPERATOR_NOT_EQUAL);}
 ">"  {return new Symbol(sym.OPERATOR_GREATER);}
 "<"  {return new Symbol(sym.OPERATOR_LESS);}
 "&&"  {return new Symbol(sym.OPERATOR_AND);}
@@ -71,6 +74,7 @@ import java_cup.runtime.Symbol;
 "-"   {return new Symbol(sym.OPERATOR_SUB);}
 "*"   {return new Symbol(sym.OPERATOR_MUL);}
 "/"   {return new Symbol(sym.OPERATOR_DIV);}
+
 
 
 
@@ -88,6 +92,10 @@ import java_cup.runtime.Symbol;
 
 
 // Error
-.  {return new Symbol(sym.error);}
+.  {
+          System.err.println("Error : \n Error on line "+(yyline+1)+"\n Unrecognized character '" + yytext()+"'");
+          System.exit(1);
+      }
 
 <<EOF>> { return new Symbol( sym.EOF ); }
+
