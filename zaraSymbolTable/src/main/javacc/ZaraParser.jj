@@ -1,0 +1,5 @@
+options {
+    STATIC = false;
+    UNICODE_INPUT = true;
+    LOOKAHEAD = 1;  // Standard LL(1) parsing
+}

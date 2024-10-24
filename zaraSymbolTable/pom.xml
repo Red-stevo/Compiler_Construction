@@ -74,6 +74,28 @@
 
 
 
+            <!--plugin for javacc-->
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>javacc-maven-plugin</artifactId>
+                <version>2.6</version> <!-- or the latest version -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jjtree</goal>  <!-- if you're using JJTree -->
+                            <goal>javacc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/generated-sources/javacc</outputDirectory>
+                    <includes>
+                        <include>ZaraParser.jj</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
             <!-- JFlex Maven Plugin -->
             <plugin>
                 <groupId>de.jflex</groupId>
