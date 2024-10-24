@@ -16,7 +16,10 @@ parser code {:
 :};
 
 terminal IDENTIFIER, CONSTANT, FLOAT;
-terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN;
+terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN, OPERATOR_GREATER, OPERATOR_LESS, OPERATOR_AND;
+terminal OPERATOR_GREATER_EQUAL, OPERATOR_LESS_EQUAL, OPERATOR_NOT, OPERATOR_OR, OPERATOR_DOT, OPERATOR_EQUAL;
+terminal PUNCTUATION_CURLED_LEFT, PUNCTUATION_CURLED_RIGHT, PUNCTUATION_COMMA, PUNCTUATION_COLON;
+terminal PUNCTUATION_SQUARE_LEFT, PUNCTUATION_SQUARE_RIGHT;
 terminal SEMI_COLON, PUNCTUATION_LEFT, PUNCTUATION_RIGHT, KEYWORD;
 
 
@@ -28,51 +31,26 @@ precedence left OPERATOR_MUL, OPERATOR_DIV;
 
 start with StmtList;
 
-StmtList ::= StmtList Stmt {:
-                System.out.println("Parsed StmtList: StmtList Stmt");
-            :}
-           | /* empty */ {:
-                System.out.println("Parsed empty StmtList");
-            :};
+StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
+           |  {:System.out.println("Parsed empty StmtList");:};
 
-Stmt ::= KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON {:
-                System.out.println("Parsed Stmt: KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON");
-            :}
-       | Expr SEMI_COLON {:
-                System.out.println("Parsed Stmt: Expr SEMI_COLON");
-            :};
+Stmt ::= KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON {: System.out.println("Parsed Stmt: KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON");:}
+       | Expr SEMI_COLON {:System.out.println("Parsed Stmt: Expr SEMI_COLON");:};
 
-Expr ::= Expr OPERATOR_ADD Term {:
-                System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");
-            :}
-       | Expr OPERATOR_SUB Term {:
-                System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");
-            :}
-       | Term {:
-                System.out.println("Parsed Expr: Term");
-            :};
+Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
+       | Expr OPERATOR_SUB Term {:System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");:}
+       | Term {:System.out.println("Parsed Expr: Term");:};
 
-Term ::= Term OPERATOR_MUL Factor {:
-                System.out.println("Parsed Term: Term OPERATOR_MUL Factor");
-            :}
-       | Term OPERATOR_DIV Factor {:
-                System.out.println("Parsed Term: Term OPERATOR_DIV Factor");
-            :}
-       | Factor {:
-                System.out.println("Parsed Term: Factor");
-            :};
+Term ::= Term OPERATOR_MUL Factor {:System.out.println("Parsed Term: Term OPERATOR_MUL Factor");:}
+       | Term OPERATOR_DIV Factor {:System.out.println("Parsed Term: Term OPERATOR_DIV Factor");:}
+       | Factor {:System.out.println("Parsed Term: Factor");:};
 
-Factor ::= CONSTANT {:
-                System.out.println("Parsed Factor: CONSTANT");
-            :}
-         | IDENTIFIER {:
-                System.out.println("Parsed Factor: IDENTIFIER");
-            :}
-         | FLOAT {:
-                System.out.println("Parsed Factor: FLOAT");
-            :}
-         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:
-                System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");
-            :};
+Factor ::= CONSTANT {:System.out.println("Parsed Factor: CONSTANT");:}
+         | IDENTIFIER {:System.out.println("Parsed Factor: IDENTIFIER");:}
+         | FLOAT {:System.out.println("Parsed Factor: FLOAT");:}
+         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");:};
+
+
+
 
 

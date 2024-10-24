@@ -1,4 +1,4 @@
-package red.stevo.code.Lexer;
+package red.stevo.code.Parser;
 
 import java.lang.System;
 import java.io.IOException;
@@ -40,28 +40,39 @@ import java_cup.runtime.Symbol;
     return new Symbol(sym.IDENTIFIER, yytext());
 }
 
-//[^\".*\"$]  {return new Symbol(sym.STRING, yytext());}
-
-// PUNCTUATION
-//[{},:\[\]]                            {return new Symbol(sym.PUNCTUATION, yytext());}
-
-
+// \"(?:[^"\\]|\\.)*" {return new Symbol(sym.STRING, yytext());}
 
 // OPERATORS
-//(">"|"<"|"&&"|"=="|">="|"<="|"!"|"||"|"."|"|") {return new Symbol(sym.OPERATOR, yytext());}
-
-
+">"  {return new Symbol(sym.OPERATOR_GREATER);}
+"<"  {return new Symbol(sym.OPERATOR_LESS);}
+"&&"  {return new Symbol(sym.OPERATOR_AND);}
+">="  {return new Symbol(sym.OPERATOR_GREATER_EQUAL);}
+"<="  {return new Symbol(sym.OPERATOR_LESS_EQUAL);}
+"!"  {return new Symbol(sym.OPERATOR_NOT);}
+"||"  {return new Symbol(sym.OPERATOR_OR);}
+"."  {return new Symbol(sym.OPERATOR_DOT);}
+"=="  {return new Symbol(sym.OPERATOR_EQUAL);}
 "+"   {return new Symbol(sym.OPERATOR_ADD);}
 "-"   {return new Symbol(sym.OPERATOR_SUB);}
 "*"   {return new Symbol(sym.OPERATOR_MUL);}
 "/"   {return new Symbol(sym.OPERATOR_DIV);}
+
+
+
+// PUNCTUATION
 "="   {return new Symbol(sym.ASSIGN);}
 "("   {return new Symbol(sym.PUNCTUATION_LEFT);}
 ")"   {return new Symbol(sym.PUNCTUATION_RIGHT);}
 ";"   {return new Symbol(sym.SEMI_COLON);}
+"{"   {return new Symbol(sym.PUNCTUATION_CURLED_LEFT);}
+"}"   {return new Symbol(sym.PUNCTUATION_CURLED_RIGHT);}
+","   {return new Symbol(sym.PUNCTUATION_COMMA);}
+":"   {return new Symbol(sym.PUNCTUATION_COLON);}
+"["   {return new Symbol(sym.PUNCTUATION_SQUARE_LEFT);}
+"]"   {return new Symbol(sym.PUNCTUATION_SQUARE_RIGHT);}
+
 
 // Error
-.                                       {
-    System.err.printf("ERROR: Unrecognized character '%s'\n", yytext());
-    System.exit(1);
-}
+.  {return new Symbol(sym.error);}
+
+<<EOF>> { return new Symbol( sym.EOF ); }
