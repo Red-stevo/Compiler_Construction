@@ -182,7 +182,9 @@ class CUP$parser$actions {
           case 1: // StmtList ::= StmtList Stmt 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed StmtList: StmtList Stmt");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("StmtList",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -191,7 +193,9 @@ class CUP$parser$actions {
           case 2: // StmtList ::= 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed empty StmtList");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("StmtList",0, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -200,7 +204,9 @@ class CUP$parser$actions {
           case 3: // Stmt ::= KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Stmt: KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stmt",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -209,7 +215,9 @@ class CUP$parser$actions {
           case 4: // Stmt ::= Expr SEMI_COLON 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Stmt: Expr SEMI_COLON");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stmt",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -218,7 +226,9 @@ class CUP$parser$actions {
           case 5: // Expr ::= Expr OPERATOR_ADD Term 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -227,7 +237,9 @@ class CUP$parser$actions {
           case 6: // Expr ::= Expr OPERATOR_SUB Term 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -236,7 +248,9 @@ class CUP$parser$actions {
           case 7: // Expr ::= Term 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Expr: Term");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr",2, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -245,7 +259,9 @@ class CUP$parser$actions {
           case 8: // Term ::= Term OPERATOR_MUL Factor 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Term: Term OPERATOR_MUL Factor");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Term",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -254,7 +270,9 @@ class CUP$parser$actions {
           case 9: // Term ::= Term OPERATOR_DIV Factor 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Term: Term OPERATOR_DIV Factor");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Term",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -263,7 +281,9 @@ class CUP$parser$actions {
           case 10: // Term ::= Factor 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Term: Factor");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Term",3, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -272,7 +292,9 @@ class CUP$parser$actions {
           case 11: // Factor ::= CONSTANT 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Factor: CONSTANT");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Factor",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -281,7 +303,9 @@ class CUP$parser$actions {
           case 12: // Factor ::= IDENTIFIER 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Factor: IDENTIFIER");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Factor",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -290,7 +314,9 @@ class CUP$parser$actions {
           case 13: // Factor ::= FLOAT 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Factor: FLOAT");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Factor",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -299,7 +325,9 @@ class CUP$parser$actions {
           case 14: // Factor ::= PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT 
             {
               Object RESULT =null;
-
+		
+                System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Factor",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
