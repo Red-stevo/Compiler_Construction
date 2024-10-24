@@ -89,7 +89,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>${project.build.directory}/generated-sources/javacc</outputDirectory>
+                    <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>
                     <includes>
                         <include>ZaraParser.jj</include>
                     </includes>

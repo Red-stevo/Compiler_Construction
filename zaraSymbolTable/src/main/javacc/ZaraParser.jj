@@ -2,7 +2,7 @@
 
 options {
     STATIC = false;
-    UNICODE_INPUT = true;
+    UNICODE_INPUT = false;
     LOOKAHEAD = 1;  // Standard LL(1) parsing
 }
 
@@ -18,7 +18,7 @@ public class ZaraParser {
         lexer = new ZaraLexer(in);  // Instantiate the lexer with an InputStream
     }
 
-    public void Start() throws Exception {
+    public void Starting() throws Exception {
         Symbol s = lexer.next_token();  // Get token from the JFlex lexer
         while (s.sym != sym.EOF) {
             // Process token, build AST, etc.
