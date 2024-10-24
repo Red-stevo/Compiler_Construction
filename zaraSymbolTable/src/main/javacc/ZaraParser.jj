@@ -3,3 +3,25 @@ options {
     UNICODE_INPUT = true;
     LOOKAHEAD = 1;  // Standard LL(1) parsing
 }
+
+PARSER_BEGIN(ZaraParser)
+import java.io.*;
+import java_cup.runtime.Symbol;
+
+public class ZaraParser {
+    ZaraLexer lexer;
+
+       public ZaraParser(InputStream in) {
+           lexer = new ZaraLexer(in);
+       }
+
+       public void Start() {
+           Symbol s = lexer.next_token();  // Get token from external lexer
+           while (s.sym != sym.EOF) {
+               // Process token, build AST, etc.
+               s = lexer.next_token();  // Get next token
+           }
+       }
+}
+PARSER_END(ZaraParser)
+
