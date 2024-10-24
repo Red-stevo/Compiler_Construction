@@ -1,8 +1,8 @@
 package red.stevo.code;
 
 
-import red.stevo.code.Parser.ZaraLexer;
-import red.stevo.code.Parser.parser;
+import red.stevo.code.Lexer.ZaraLexer;
+import red.stevo.code.Lexer.parser;
 
 import java.io.FileReader;
 

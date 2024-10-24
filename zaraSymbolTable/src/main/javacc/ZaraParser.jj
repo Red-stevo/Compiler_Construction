@@ -1,30 +1,43 @@
+/*
 PARSER_BEGIN(ZaraParser)
 
 
-import red.stevo.code.Lexer;
+package red.stevo.code.Lexer;
 import java_cup.runtime.*;
 import java.io.*;
 
 public class ZaraParser {
-    public static void main(String args[]) throws ParseException, IOException {
+    */
+/*public static void main(String args[]) throws ParseException, IOException {
         ZaraLexer lexer = new ZaraLexer(new FileReader(args[0]));
         ZaraParser parser = new ZaraParser(new LexerBridge(lexer));
         parser.Start();
-    }
+    }*//*
+
 }
 
 PARSER_END(ZaraParser)
 
-// Token specifications (these should match your JFlex lexer)
+// Token specifications
 TOKEN : {
     < IF: "if" >
     | < ELSE: "else" >
     | < WHILE: "while" >
     | < FOR: "for" >
     | < RETURN: "return" >
+    | <CONST: "const">
+    | <GLOB: "global">
+    | <IN: "in">
+    | <STRING: "string">
+    | <ARRAY:"arr">
+    | <STACK: "stack">
+    | <ELSE_IF: "else-if" >
+    | <DO: "do">
+    | <CONTINUE: "continue">
+    | <CLASS: "class">
+    | <INT: "int">
     | < ASSIGN: "=" >
     | < EQ: "==" >
-    | < NEQ: "!=" >
     | < GT: ">" >
     | < LT: "<" >
     | < GTE: ">=" >
@@ -34,6 +47,8 @@ TOKEN : {
     | < MULT: "*" >
     | < DIV: "/" >
     | < AND: "&&" >
+    | <NOT: "!">
+    | <DOT: ".">
     | < OR: "||" >
     | < LPAREN: "(" >
     | < RPAREN: ")" >
@@ -41,6 +56,9 @@ TOKEN : {
     | < RBRACE: "}" >
     | < SEMICOLON: ";" >
     | < COMMA: "," >
+    | <COLON: ":">
+    | <LSQUARE: "[">
+    | <RSQUARE: "]">
     | < IDENTIFIER: <LETTER> (<LETTER>|<DIGIT>)* >
     | < CONSTANT: <DIGIT>>
     | < FLOAT: <DIGIT> "." (<DIGIT>)* >
@@ -55,10 +73,23 @@ void Start() : {}
 }
 
 // Statement
-void Statement() : {}
-{
-    ( VariableDeclaration() | FunctionDeclaration() | IfStatement() | WhileStatement() | ForStatement() | ExpressionStatement() | ReturnStatement() ) ";"
+void Statement() : {
+    Token t;
 }
+{
+    t = <IDENTIFIER>
+    (
+        ( "=" Expression() { System.out.println("Declared variable: " + t.image); } )
+        | ( "(" ( ParameterList() )? ")" "{" (Statement())* "}" { System.out.println("Declared function: " + t.image); } )
+    )
+    | IfStatement()
+    | WhileStatement()
+    | ForStatement()
+    | ExpressionStatement()
+    | ReturnStatement()
+    ";"
+}
+
 
 // Variable Declaration
 void VariableDeclaration() : {
@@ -189,3 +220,4 @@ void PrimaryExpression() : {
     }
     | "(" Expression() ")"
 }
+*/

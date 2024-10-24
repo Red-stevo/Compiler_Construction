@@ -43,12 +43,15 @@
             <artifactId>java_cup</artifactId>
             <version>0.9e</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
         <dependency>
-            <groupId>net.java.dev.javacc</groupId>
-            <artifactId>javacc</artifactId>
-            <version>7.0.13</version>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.13.2</version>
         </dependency>
+
+
+
     </dependencies>
 
     <build>
@@ -72,28 +75,22 @@
                 </configuration>
             </plugin>
 
-
-
-            <!--plugin for javacc-->
-
+            <!--antlr maven plugin -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>javacc-maven-plugin</artifactId>
-                <version>2.6</version> <!-- or the latest version -->
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.13.2</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>jjtree</goal>  <!-- if you're using JJTree -->
-                            <goal>javacc</goal>
+                            <goal>antlr4</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>src/main/java</outputDirectory>
+                        </configuration>
+
                     </execution>
                 </executions>
-                <configuration>
-                    <outputDirectory>src/main/java</outputDirectory>
-                    <includes>
-                        <include>ZaraParser.jj</include>
-                    </includes>
-                </configuration>
             </plugin>
 
             <!-- JFlex Maven Plugin -->
