@@ -65,3 +65,5 @@ import java_cup.runtime.Symbol;
     System.err.printf("ERROR: Unrecognized character '%s'\n", yytext());
     System.exit(1);
 }
+
+<<EOF>> { return new Symbol( sym.EOF ); }
