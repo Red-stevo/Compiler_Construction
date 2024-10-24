@@ -44,6 +44,11 @@
             <version>0.9e</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.java.dev.javacc</groupId>
+            <artifactId>javacc</artifactId>
+            <version>7.0.13</version>
+        </dependency>
     </dependencies>
 
     <build>
