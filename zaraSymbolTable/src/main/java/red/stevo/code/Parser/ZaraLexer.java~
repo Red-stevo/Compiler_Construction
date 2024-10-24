@@ -717,7 +717,7 @@ public class ZaraLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { return new Symbol(sym.ERROR);
+            { return new Symbol(sym.error);
             }
           // fall through
           case 32: break;

@@ -21,9 +21,24 @@ import java_cup.runtime.Symbol;
 "/*"([^*]|[*][^/])*"*/"       { /* Ignore multi-line comments */ }
 
 // KEYWORDS
-("const"|"global"|"in" | "break" | "int" | "float" | "string" | "arr" | "stack" | "while" | "if" | "else" | "else-if" | "do" | "for" | "return" | "continue"| "class") {
-    return new Symbol(sym.KEYWORD, yytext());
-}
+
+("int" | "float" | "string" | "arr" | "stack") {return new Symbol(sym.DATATYPE, yytext());}
+
+"const"  {return new Symbol(sym.CONST);}
+"global"  {return new Symbol(sym.GLOBAL);}
+"break"  {return new Symbol(sym.BREAK);}
+"in"  {return new Symbol(sym.IN);}
+"while"  {return new Symbol(sym.WHILE);}
+"if"  {return new Symbol(sym.IF);}
+"else"  {return new Symbol(sym.ELSE);}
+"else-if"  {return new Symbol(sym.ELSEIF);}
+"do"  {return new Symbol(sym.DO);}
+"for"  {return new Symbol(sym.FOR);}
+"return"  {return new Symbol(sym.RETURN);}
+"continue"  {return new Symbol(sym.CONTINUE);}
+"class"  {return new Symbol(sym.CLASS);}
+
+
 
 // CONSTANTS (integers)
 [+-]?[0-9]+                             {

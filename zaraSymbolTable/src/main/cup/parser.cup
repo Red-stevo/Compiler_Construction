@@ -19,11 +19,12 @@ terminal IDENTIFIER, CONSTANT, FLOAT;
 terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN, OPERATOR_GREATER, OPERATOR_LESS, OPERATOR_AND;
 terminal OPERATOR_GREATER_EQUAL, OPERATOR_LESS_EQUAL, OPERATOR_NOT, OPERATOR_OR, OPERATOR_DOT, OPERATOR_EQUAL;
 terminal PUNCTUATION_CURLED_LEFT, PUNCTUATION_CURLED_RIGHT, PUNCTUATION_COMMA, PUNCTUATION_COLON;
-terminal PUNCTUATION_SQUARE_LEFT, PUNCTUATION_SQUARE_RIGHT;
+terminal PUNCTUATION_SQUARE_LEFT, PUNCTUATION_SQUARE_RIGHT, DATATYPE;
 terminal SEMI_COLON, PUNCTUATION_LEFT, PUNCTUATION_RIGHT, KEYWORD;
+terminal CONST, GLOBAL, BREAK, IN, WHILE, IF, ELSE, ELSEIF, DO, FOR, RETURN, CONTINUE, CLASS;
 
 
-non terminal StmtList, Stmt, Expr, Term, Factor;
+non terminal StmtList, Stmt, Expr, Term, Factor, keywords, l_desclaration, key_1, key_2, key_3, initialize;
 
 
 precedence left OPERATOR_ADD, OPERATOR_SUB;
@@ -34,8 +35,22 @@ start with StmtList;
 StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
            |  {:System.out.println("Parsed empty StmtList");:};
 
-Stmt ::= KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON {: System.out.println("Parsed Stmt: KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON");:}
-       | Expr SEMI_COLON {:System.out.println("Parsed Stmt: Expr SEMI_COLON");:};
+
+//Right hand variable declaration.
+
+l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclaration ::= keywords IDENTIFIER"); :};
+
+keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :};
+
+key_1 ::= GLOBAL | {: System.out.println("Parsed key_1 ::= GLOBAL | "); :};
+key_2 ::= CONST  | {: System.out.println("Parsed key_2 ::= CONST |"); :};
+key_3 ::= DATATYPE {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
+
+//left hand size of a declaration.
+initialize ::= ASSIGN Expr initialize | SEMI_COLON {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
+
+
+Stmt ::= l_desclaration initialize {:System.out.println("Parsed Stmt ::= r_desclaration initialize");:};
 
 Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
        | Expr OPERATOR_SUB Term {:System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");:}
