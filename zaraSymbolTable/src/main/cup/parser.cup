@@ -1,33 +1,46 @@
-package red.stevo.code;
-
+// CUP specification for ZaraParser
+package red.stevo.code.Parser;
 
 import java_cup.runtime.*;
 
-options {
-    symbolsInterface = true;
-    symbolsName = sym;
-}
+/* Preliminaries to set up and use the scanner. */
+//init with {: scanner.init();              :};
+//scan with {: return scanner.next_token(); :};
 
+parser code {:
+  private ZaraLexer scanner;
+
+  public parser(ZaraLexer s) {
+    this.scanner = s;
+  }
+
+  public java_cup.runtime.Symbol scan() throws java.lang.Exception {
+     return scanner.yylex();
+  }
+
+:};
+
+
+/* Terminals (tokens returned by the scanner). */
 terminal IDENTIFIER, CONSTANT, FLOAT;
-terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV;
-terminal PUNCTUATION, PUNCTUATION_LEFT, PUNCTUATION_RIGHT;
+terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN;
+terminal SEMI_COLON, PUNCTUATION_LEFT, PUNCTUATION_RIGHT, KEYWORD;
 
+/* Non terminals */
+non terminal StmtList, Stmt, Expr, Term, Factor;
 
+/* Precedences */
 precedence left OPERATOR_ADD, OPERATOR_SUB;
 precedence left OPERATOR_MUL, OPERATOR_DIV;
 
-nonterminal StmtList, Stmt, Expr, Term, Factor;
-
-
+/* The grammar */
 start with StmtList;
-
 
 StmtList ::= StmtList Stmt
            | /* empty */ ;
 
-
-Stmt ::= IDENTIFIER OPERATOR Expr PUNCTUATION
-       | Expr PUNCTUATION;
+Stmt ::= KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON
+       | Expr SEMI_COLON;
 
 Expr ::= Expr OPERATOR_ADD Term
        | Expr OPERATOR_SUB Term
@@ -41,9 +54,3 @@ Factor ::= CONSTANT
          | IDENTIFIER
          | FLOAT
          | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT;
-
-
-error ::= {
-    System.out.println("Syntax error: " + yytext());
-    System.exit(1);
-}
