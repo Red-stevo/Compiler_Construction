@@ -1,3 +1,5 @@
+package red.stevo.code.Parser;
+
 import java.lang.System;
 import java.io.IOException;
 import java_cup.runtime.Symbol;
@@ -16,10 +18,10 @@ import java_cup.runtime.Symbol;
 // Single-line comments
 "#".*                        { /* Ignore comments */ }
 // Multi-line comments
-"\\*\\*"([^*]|\\*[^*])*"\\*\\*" { /* Ignore multi-line comments */ }
+"/*"([^*]|[*][^/])*"*/"       { /* Ignore multi-line comments */ }
 
 // KEYWORDS
-("const"|"global"|"in" | "break" | "int" | "float" | "string" | "arr" | "stack" | "while" |"if" | "else" | "else-if" | "do" | "for" | "return" |"continue"| "class") {
+("const"|"global"|"in" | "break" | "int" | "float" | "string" | "arr" | "stack" | "while" | "if" | "else" | "else-if" | "do" | "for" | "return" | "continue"| "class") {
     return new Symbol(sym.KEYWORD, yytext());
 }
 
@@ -39,24 +41,26 @@ import java_cup.runtime.Symbol;
 }
 
 // PUNCTUATION
-[{},;:()\[\]]                            {
-    return new Symbol(sym.PUNCTUATION, yytext());
-}
+//[{},:\[\]]                            {return new Symbol(sym.PUNCTUATION, yytext());}
 
 // STRING LITERALS
-\"([^\"\\\n]|\\[btnrf\"\\])*\"           {
-    return new Symbol(sym.STRING_LITERAL, yytext());
-}
+//\"([^\"\\\n]|\\[btnrf\"\\])*\"  {return new Symbol(sym.STRING_LITERAL, yytext());}
 
 // OPERATORS
-("+"|"-"|"*"|"/"|">"|"<"|"&&"|"=="|">="|"<="|"="|"!"|"||"|".") {
-    return new Symbol(sym.OPERATOR, yytext());
-}
+//(">"|"<"|"&&"|"=="|">="|"<="|"!"|"||"|".") {return new Symbol(sym.OPERATOR, yytext());}
+
+
+"+"   {return new Symbol(sym.OPERATOR_ADD);}
+"-"   {return new Symbol(sym.OPERATOR_SUB);}
+"*"   {return new Symbol(sym.OPERATOR_MUL);}
+"/"   {return new Symbol(sym.OPERATOR_DIV);}
+"="   {return new Symbol(sym.ASSIGN);}
+"("   {return new Symbol(sym.PUNCTUATION_LEFT);}
+")"   {return new Symbol(sym.PUNCTUATION_RIGHT);}
+";"   {return new Symbol(sym.SEMI_COLON);}
 
 // Error
 .                                       {
-    System.out.printf("ERROR: Unrecognized character '%s'\n", yytext());
+    System.err.printf("ERROR: Unrecognized character '%s'\n", yytext());
     System.exit(1);
 }
-
-

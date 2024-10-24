@@ -49,6 +49,23 @@
     <build>
         <plugins>
 
+            <!-- JFlex Maven Plugin -->
+            <plugin>
+                <groupId>de.jflex</groupId>
+                <artifactId>jflex-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>src/main/java</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Exec Maven Plugin for Java CUP -->
             <plugin>
                 <groupId>com.github.vbmacher</groupId>
@@ -62,29 +79,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <symbolsName>sym</symbolsName>
-                  <!--  <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>-->
+                    <outputDirectory>src/main/java</outputDirectory>
                 </configuration>
             </plugin>
 
-
-
-            <!-- JFlex Maven Plugin -->
-            <plugin>
-                <groupId>de.jflex</groupId>
-                <artifactId>jflex-maven-plugin</artifactId>
-                <version>1.9.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>src/main/java/red/stevo/code/Lexer</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
