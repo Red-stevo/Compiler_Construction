@@ -40,11 +40,12 @@ import java_cup.runtime.Symbol;
     return new Symbol(sym.IDENTIFIER, yytext());
 }
 
+//[^\".*\"$]  {return new Symbol(sym.STRING, yytext());}
+
 // PUNCTUATION
 //[{},:\[\]]                            {return new Symbol(sym.PUNCTUATION, yytext());}
 
-// STRING LITERALS
-//\"([^\"\\\n]|\\[btnrf\"\\])*\"  {return new Symbol(sym.STRING_LITERAL, yytext());}
+
 
 // OPERATORS
 //(">"|"<"|"&&"|"=="|">="|"<="|"!"|"||"|".") {return new Symbol(sym.OPERATOR, yytext());}

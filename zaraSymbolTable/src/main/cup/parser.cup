@@ -1,11 +1,6 @@
-// CUP specification for ZaraParser
 package red.stevo.code.Parser;
 
 import java_cup.runtime.*;
-
-/* Preliminaries to set up and use the scanner. */
-//init with {: scanner.init();              :};
-//scan with {: return scanner.next_token(); :};
 
 parser code {:
   private ZaraLexer scanner;
@@ -20,37 +15,64 @@ parser code {:
 
 :};
 
-
-/* Terminals (tokens returned by the scanner). */
 terminal IDENTIFIER, CONSTANT, FLOAT;
 terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN;
 terminal SEMI_COLON, PUNCTUATION_LEFT, PUNCTUATION_RIGHT, KEYWORD;
 
-/* Non terminals */
+
 non terminal StmtList, Stmt, Expr, Term, Factor;
 
-/* Precedences */
+
 precedence left OPERATOR_ADD, OPERATOR_SUB;
 precedence left OPERATOR_MUL, OPERATOR_DIV;
 
-/* The grammar */
 start with StmtList;
 
-StmtList ::= StmtList Stmt
-           | /* empty */ ;
+StmtList ::= StmtList Stmt {:
+                System.out.println("Parsed StmtList: StmtList Stmt");
+            :}
+           | /* empty */ {:
+                System.out.println("Parsed empty StmtList");
+            :};
 
-Stmt ::= KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON
-       | Expr SEMI_COLON;
+Stmt ::= KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON {:
+                System.out.println("Parsed Stmt: KEYWORD IDENTIFIER ASSIGN Expr SEMI_COLON");
+            :}
+       | Expr SEMI_COLON {:
+                System.out.println("Parsed Stmt: Expr SEMI_COLON");
+            :};
 
-Expr ::= Expr OPERATOR_ADD Term
-       | Expr OPERATOR_SUB Term
-       | Term;
+Expr ::= Expr OPERATOR_ADD Term {:
+                System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");
+            :}
+       | Expr OPERATOR_SUB Term {:
+                System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");
+            :}
+       | Term {:
+                System.out.println("Parsed Expr: Term");
+            :};
 
-Term ::= Term OPERATOR_MUL Factor
-       | Term OPERATOR_DIV Factor
-       | Factor;
+Term ::= Term OPERATOR_MUL Factor {:
+                System.out.println("Parsed Term: Term OPERATOR_MUL Factor");
+            :}
+       | Term OPERATOR_DIV Factor {:
+                System.out.println("Parsed Term: Term OPERATOR_DIV Factor");
+            :}
+       | Factor {:
+                System.out.println("Parsed Term: Factor");
+            :};
 
-Factor ::= CONSTANT
-         | IDENTIFIER
-         | FLOAT
-         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT;
+Factor ::= CONSTANT {:
+                System.out.println("Parsed Factor: CONSTANT");
+            :}
+         | IDENTIFIER {:
+                System.out.println("Parsed Factor: IDENTIFIER");
+            :}
+         | FLOAT {:
+                System.out.println("Parsed Factor: FLOAT");
+            :}
+         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:
+                System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");
+            :};
+
+
