@@ -27,6 +27,11 @@ public class ZaraParser {
 }
 PARSER_END(ZaraParser)
 
+TOKEN : {
+    <IDENTIFIER : "IDENTIFIER">|
+    <CONSTANT : "CONSTANT">|
+    <FLOAT :"FLOAT">
+}
 // Grammar rules start here
 
 void Start() :
