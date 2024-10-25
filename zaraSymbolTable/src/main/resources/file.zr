@@ -1,3 +1,4 @@
 int bob = 6;
-while(bob > 5){};
-while(bob > 5){};
+int bree = 6 + 4;
+
+string name = "Stephen Muiru";

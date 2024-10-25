@@ -15,7 +15,7 @@ parser code {:
 
 :};
 
-terminal IDENTIFIER, CONSTANT, FLOAT;
+terminal IDENTIFIER, CONSTANT, FLOAT, STRING_LITERAL;
 terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN, OPERATOR_GREATER, OPERATOR_LESS, OPERATOR_AND;
 terminal OPERATOR_GREATER_EQUAL, OPERATOR_LESS_EQUAL, OPERATOR_NOT, OPERATOR_OR, OPERATOR_DOT, OPERATOR_EQUAL;
 terminal PUNCTUATION_CURLED_LEFT, PUNCTUATION_CURLED_RIGHT, PUNCTUATION_COMMA, PUNCTUATION_COLON;
@@ -46,21 +46,22 @@ l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclarat
 keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :};
 
 key_1 ::= GLOBAL {: System.out.println("Parsed key_1 ::= GLOBAL | "); :}
-            | {: System.out.println("Parsed key_1 ::= epsilon "); :};
+            |    {: System.out.println("Parsed key_1 ::= epsilon "); :};
 
 
 key_2 ::= CONST  {: System.out.println("Parsed key_2 ::= CONST |"); :}
-            |{: System.out.println("Parsed key_2 ::= epsilon "); :};
+            |    {: System.out.println("Parsed key_2 ::= epsilon "); :};
 
 
-key_3 ::= DATATYPE {: System.out.println("Parsed key_3 ::= DATATYPE"); :}
-            | {: System.out.println("Parsed key_3 ::= epsilon "); :};
+key_3 ::= DATATYPE  {: System.out.println("Parsed key_3 ::= DATATYPE"); :}
+            |       {: System.out.println("Parsed key_3 ::= epsilon "); :};
 
 //right hand size of a declaration.
 initialize ::= ASSIGN valueAssign  {:System.out.println("Parsed initialize ::= ASSIGN valueAssign");:}
-                | SEMI_COLON {:System.out.println("Parsed initialize ::= SEMI_COLON");:};
+                | SEMI_COLON       {:System.out.println("Parsed initialize ::= SEMI_COLON");:};
 
 valueAssign ::= firstmultipleAssign SEMI_COLON {:System.out.println("Parsed valueAssign ::= multipleAssign SEMI_COLON");:}
+                | STRING_LITERAL SEMI_COLON {:System.out.println("Parsed valueAssign ::=  STRING_LITERAL SEMI_COLON");:}
                 | Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:};
 
 firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign");:};

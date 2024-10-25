@@ -12,6 +12,8 @@ import java_cup.runtime.Symbol;
 %type Symbol
 %line
 %column
+
+
 %%
 
 
@@ -21,6 +23,9 @@ import java_cup.runtime.Symbol;
 "#".*                        { /* Ignore comments */ }
 // Multi-line comments
 "/*"([^*]|[*][^/])*"*/"       { /* Ignore multi-line comments */ }
+
+\"([^\"\\\n]|\\[\"\\btnfr])*\" {return new Symbol(sym.STRING_LITERAL, yytext());}
+
 
 // KEYWORDS
 
@@ -56,8 +61,6 @@ import java_cup.runtime.Symbol;
 [A-Za-z][A-Za-z0-9]*                    {
     return new Symbol(sym.IDENTIFIER, yytext());
 }
-
-// \"(?:[^"\\]|\\.)*" {return new Symbol(sym.STRING, yytext());}
 
 // OPERATORS
 "!="   {return new Symbol(sym.OPERATOR_NOT_EQUAL);}
