@@ -45,7 +45,8 @@ key_2 ::= CONST  | {: System.out.println("Parsed key_2 ::= CONST |"); :};
 key_3 ::= DATATYPE | {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
 
 //left hand size of a declaration.
-initialize ::= ASSIGN Expr initialize | SEMI_COLON {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
+initialize ::= ASSIGN Expr initialize {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:}
+            | SEMI_COLON {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
 
 Stmt ::= l_desclaration initialize {:System.out.println("Parsed Stmt ::= r_desclaration initialize");:};
 
