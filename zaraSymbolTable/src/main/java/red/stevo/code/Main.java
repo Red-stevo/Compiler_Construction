@@ -12,12 +12,16 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-       /* ZaraLexer lexer = new ZaraLexer(new FileReader("/home/mirowe/Project/Compiler_Construction/zaraSymbolTable/src/main/resources/file.zr"));*/
-       /* parser parser = new parser(lexer);*/
-       /* parser.parse();*/
-/**/
-        topDownParser();                                                                                                                             /**/
+        bottomUpParser();
 
+        //topDownParser();                                                                                                                             /**/
+
+    }
+
+    private static void bottomUpParser() throws Exception {
+        ZaraLexer lexer = new ZaraLexer(new FileReader("src/main/resources/file.zr"));
+        parser parser = new parser(lexer);
+        parser.parse();
     }
 
     private static void topDownParser() throws IOException, ParseException {
