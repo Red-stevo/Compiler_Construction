@@ -1,4 +1,4 @@
-package red.stevo.code.Parser;
+package red.stevo.code.Lexer;
 
 import java.lang.System;
 import java.io.IOException;
@@ -10,8 +10,10 @@ import java_cup.runtime.Symbol;
 %unicode
 %public
 %type Symbol
-
+%line
+%column
 %%
+
 
 // Ignore whitespace
 [ \t\n]+                     { /* Ignore whitespace */ }
@@ -21,9 +23,24 @@ import java_cup.runtime.Symbol;
 "/*"([^*]|[*][^/])*"*/"       { /* Ignore multi-line comments */ }
 
 // KEYWORDS
-("const"|"global"|"in" | "break" | "int" | "float" | "string" | "arr" | "stack" | "while" | "if" | "else" | "else-if" | "do" | "for" | "return" | "continue"| "class") {
-    return new Symbol(sym.KEYWORD, yytext());
-}
+
+("int" | "float" | "string" | "arr" | "stack") {return new Symbol(sym.DATATYPE, yytext());}
+
+"const"  {return new Symbol(sym.CONST);}
+"global"  {return new Symbol(sym.GLOBAL);}
+"break"  {return new Symbol(sym.BREAK);}
+"in"  {return new Symbol(sym.IN);}
+"while"  {return new Symbol(sym.WHILE);}
+"if"  {return new Symbol(sym.IF);}
+"else"  {return new Symbol(sym.ELSE);}
+"else-if"  {return new Symbol(sym.ELSEIF);}
+"do"  {return new Symbol(sym.DO);}
+"for"  {return new Symbol(sym.FOR);}
+"return"  {return new Symbol(sym.RETURN);}
+"continue"  {return new Symbol(sym.CONTINUE);}
+"class"  {return new Symbol(sym.CLASS);}
+
+
 
 // CONSTANTS (integers)
 [+-]?[0-9]+                             {
@@ -43,6 +60,7 @@ import java_cup.runtime.Symbol;
 // \"(?:[^"\\]|\\.)*" {return new Symbol(sym.STRING, yytext());}
 
 // OPERATORS
+"!="   {return new Symbol(sym.OPERATOR_NOT_EQUAL);}
 ">"  {return new Symbol(sym.OPERATOR_GREATER);}
 "<"  {return new Symbol(sym.OPERATOR_LESS);}
 "&&"  {return new Symbol(sym.OPERATOR_AND);}
@@ -56,6 +74,7 @@ import java_cup.runtime.Symbol;
 "-"   {return new Symbol(sym.OPERATOR_SUB);}
 "*"   {return new Symbol(sym.OPERATOR_MUL);}
 "/"   {return new Symbol(sym.OPERATOR_DIV);}
+
 
 
 
@@ -73,6 +92,10 @@ import java_cup.runtime.Symbol;
 
 
 // Error
-.  {return new Symbol(sym.error);}
+.  {
+          System.err.println("Error : \n Error on line "+(yyline+1)+"\n Unrecognized character '" + yytext()+"'");
+          System.exit(1);
+      }
 
 <<EOF>> { return new Symbol( sym.EOF ); }
+

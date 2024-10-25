@@ -1,0 +1,223 @@
+/*
+PARSER_BEGIN(ZaraParser)
+
+
+package red.stevo.code.Lexer;
+import java_cup.runtime.*;
+import java.io.*;
+
+public class ZaraParser {
+    */
+/*public static void main(String args[]) throws ParseException, IOException {
+        ZaraLexer lexer = new ZaraLexer(new FileReader(args[0]));
+        ZaraParser parser = new ZaraParser(new LexerBridge(lexer));
+        parser.Start();
+    }*//*
+
+}
+
+PARSER_END(ZaraParser)
+
+// Token specifications
+TOKEN : {
+    < IF: "if" >
+    | < ELSE: "else" >
+    | < WHILE: "while" >
+    | < FOR: "for" >
+    | < RETURN: "return" >
+    | <CONST: "const">
+    | <GLOB: "global">
+    | <IN: "in">
+    | <STRING: "string">
+    | <ARRAY:"arr">
+    | <STACK: "stack">
+    | <ELSE_IF: "else-if" >
+    | <DO: "do">
+    | <CONTINUE: "continue">
+    | <CLASS: "class">
+    | <INT: "int">
+    | < ASSIGN: "=" >
+    | < EQ: "==" >
+    | < GT: ">" >
+    | < LT: "<" >
+    | < GTE: ">=" >
+    | < LTE: "<=" >
+    | < PLUS: "+" >
+    | < MINUS: "-" >
+    | < MULT: "*" >
+    | < DIV: "/" >
+    | < AND: "&&" >
+    | <NOT: "!">
+    | <DOT: ".">
+    | < OR: "||" >
+    | < LPAREN: "(" >
+    | < RPAREN: ")" >
+    | < LBRACE: "{" >
+    | < RBRACE: "}" >
+    | < SEMICOLON: ";" >
+    | < COMMA: "," >
+    | <COLON: ":">
+    | <LSQUARE: "[">
+    | <RSQUARE: "]">
+    | < IDENTIFIER: <LETTER> (<LETTER>|<DIGIT>)* >
+    | < CONSTANT: <DIGIT>>
+    | < FLOAT: <DIGIT> "." (<DIGIT>)* >
+    | < #DIGIT: ["0"-"9"] >
+    | < #LETTER: ["A"-"Z", "a"-"z"] >
+}
+
+// Start of the program
+void Start() : {}
+{
+    (Statement())* <EOF>
+}
+
+// Statement
+void Statement() : {
+    Token t;
+}
+{
+    t = <IDENTIFIER>
+    (
+        ( "=" Expression() { System.out.println("Declared variable: " + t.image); } )
+        | ( "(" ( ParameterList() )? ")" "{" (Statement())* "}" { System.out.println("Declared function: " + t.image); } )
+    )
+    | IfStatement()
+    | WhileStatement()
+    | ForStatement()
+    | ExpressionStatement()
+    | ReturnStatement()
+    ";"
+}
+
+
+// Variable Declaration
+void VariableDeclaration() : {
+    Token t;
+}
+{
+    t = <IDENTIFIER> {
+        System.out.println("Declared variable: " + t.image);
+    }
+    "=" Expression()
+}
+
+// Function Declaration
+void FunctionDeclaration() : {
+    Token t;
+}
+{
+    t = <IDENTIFIER> {
+        System.out.println("Declared function: " + t.image);
+    }
+    "(" ( ParameterList() )? ")" "{" (Statement())* "}"
+}
+
+// Parameter List
+void ParameterList() : {
+    Token t;
+}
+{
+    t = <IDENTIFIER> {
+        System.out.println("Parameter: " + t.image);
+    }
+    ( "," t = <IDENTIFIER> {
+        System.out.println("Parameter: " + t.image);
+    } )*
+}
+
+// If Statement
+void IfStatement() : {}
+{
+    "if" "(" Expression() ")" Block() ( "else" Block() )?
+}
+
+// While Statement
+void WhileStatement() : {}
+{
+    "while" "(" Expression() ")" Block()
+}
+
+// For Statement
+void ForStatement() : {}
+{
+    "for" "(" Expression() ";" Expression() ";" Expression() ")" Block()
+}
+
+// Return Statement
+void ReturnStatement() : {}
+{
+    "return" (Expression())?
+}
+
+// Block of Statements
+void Block() : {}
+{
+    "{" (Statement())* "}"
+}
+
+// Expression Statement
+void ExpressionStatement() : {}
+{
+    Expression()
+}
+
+// Expression
+void Expression() : {}
+{
+    OrExpression()
+}
+
+// OR Expression
+void OrExpression() : {}
+{
+    AndExpression() ( "||" AndExpression() )*
+}
+
+// AND Expression
+void AndExpression() : {}
+{
+    RelationalExpression() ( "&&" RelationalExpression() )*
+}
+
+// Relational Expression
+void RelationalExpression() : {}
+{
+    AdditiveExpression() ( ( ">" | "<" | "==" | "!=" | ">=" | "<=" ) AdditiveExpression() )*
+}
+
+// Additive Expression
+void AdditiveExpression() : {}
+{
+    MultiplicativeExpression() ( ( "+" | "-" ) MultiplicativeExpression() )*
+}
+
+// Multiplicative Expression
+void MultiplicativeExpression() : {}
+{
+    UnaryExpression() ( ( "*" | "/" ) UnaryExpression() )*
+}
+
+// Unary Expression
+void UnaryExpression() : {}
+{
+    ( "+" | "-" )? PrimaryExpression()
+}
+
+// Primary Expression
+void PrimaryExpression() : {
+    Token t;
+}
+{
+    t = <IDENTIFIER> {
+        System.out.println("Identifier: " + t.image);
+    }
+    | t = <CONSTANT> {
+        System.out.println("Constant: " + t.image);
+    }
+    | t = <FLOAT> {
+        System.out.println("Float: " + t.image);
+    }
+    | "(" Expression() ")"
+}
+*/
