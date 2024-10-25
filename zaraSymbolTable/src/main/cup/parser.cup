@@ -1,4 +1,4 @@
-package red.stevo.code.Parser;
+package red.stevo.code.Lexer;
 
 import java_cup.runtime.*;
 
