@@ -1,3 +1,4 @@
+/*
 package red.stevo.code.SymbolTable;
 
 import lombok.Data;
@@ -20,13 +21,17 @@ public class SymbolTable {
         scopeResolutionMap = new HashMap<>();
     }
 
-    /*Enter into a new scope; whether class, method or block scope.\
-    * Create a new hashmap to store the symbols at that scope.*/
+    */
+/*Enter into a new scope; whether class, method or block scope.\
+    * Create a new hashmap to store the symbols at that scope.*//*
+
     public void enterNewScope(String scopeType){
         localScopeStack.push(new Scope(scopeType, new HashMap<>()));
     }
 
-    /*Adds a new symbol to the current scope.The Current scope is the one at the peek of the stack.*/
+    */
+/*Adds a new symbol to the current scope.The Current scope is the one at the peek of the stack.*//*
+
     public void addSymbol(String tokenVariableName, Object tokenValue, String tokenVariableType, String tokenScope) {
 
         Symbol symbol = new Symbol(tokenVariableName, tokenValue, tokenVariableType, tokenScope);
@@ -40,7 +45,9 @@ public class SymbolTable {
         }
     }
 
-    /*Using the scope resolution map, retrieve a symbol by the tokenVariable name.*/
+    */
+/*Using the scope resolution map, retrieve a symbol by the tokenVariable name.*//*
+
     public Symbol getSymbol(String tokenSymbolName){
         Scope scope = scopeResolutionMap.get(tokenSymbolName);
 
@@ -57,7 +64,9 @@ public class SymbolTable {
     }
 
 
-    /*Exist the current scope.This is done by popping the stack that holds the scopes.*/
+    */
+/*Exist the current scope.This is done by popping the stack that holds the scopes.*//*
+
     public void existScope(){
 
         if (!localScopeStack.isEmpty()){
@@ -68,3 +77,4 @@ public class SymbolTable {
         }
     }
 }
+*/

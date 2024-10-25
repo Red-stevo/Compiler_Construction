@@ -50,12 +50,12 @@ COLON: ':';
 LSQUARE: '[';
 RSQUARE: ']';
 
-IDENTIFIER: LETTER (LETTER | DIGIT)*;
+/*IDENTIFIER: LETTER (LETTER | DIGIT)*;
 CONSTANT: DIGIT+;
 FLOAT: DIGIT+ '.' DIGIT*;
 
 fragment DIGIT: [0-9];
-fragment LETTER: [A-Za-z];
+fragment LETTER: [A-Za-z];*/
 
 // Parser rules
 start
