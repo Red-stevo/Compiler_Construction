@@ -19,7 +19,7 @@ public class Main {
     }
 
     private static void bottomUpParser() throws Exception {
-        ZaraLexer lexer = new ZaraLexer(new FileReader("src/main/resources/file.zr"));
+        ZaraLexer lexer = new ZaraLexer(new FileReader("/home/bree/repositories/Collaboration_Compiler_Construction/zaraSymbolTable/src/main/resources/file.zr"));
         parser parser = new parser(lexer);
         parser.parse();
     }
