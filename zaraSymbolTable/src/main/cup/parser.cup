@@ -57,14 +57,12 @@ key_3 ::= DATATYPE  {: System.out.println("Parsed key_3 ::= DATATYPE"); :}
             |       {: System.out.println("Parsed key_3 ::= epsilon "); :};
 
 //right hand size of a declaration.
-initialize ::= ASSIGN valueAssign  {:System.out.println("Parsed initialize ::= ASSIGN valueAssign");:}
+initialize ::= ASSIGN valueAssign SEMI_COLON  {:System.out.println("Parsed initialize ::= ASSIGN valueAssign SEMI_COLON");:}
                 | SEMI_COLON       {:System.out.println("Parsed initialize ::= SEMI_COLON");:};
 
-valueAssign ::= firstmultipleAssign SEMI_COLON {:System.out.println("Parsed valueAssign ::= multipleAssign SEMI_COLON");:}
-                | STRING_LITERAL SEMI_COLON {:System.out.println("Parsed valueAssign ::=  STRING_LITERAL SEMI_COLON");:}
-                | Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:};
-
-firstmultipleAssign ::= IDENTIFIER multipleAssign {:System.out.println("Parsed firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign");:};
+valueAssign ::= IDENTIFIER multipleAssign  {:System.out.println("Parsed valueAssign ::= multipleAssign");:}
+                | STRING_LITERAL  {:System.out.println("Parsed valueAssign ::=  STRING_LITERAL");:}
+                | Expr  {:System.out.println("Parsed valueAssign ::= Expr");:};
 
 multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER multipleAssign");:}
                     | ASSIGN multiAssignValue {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");:};
