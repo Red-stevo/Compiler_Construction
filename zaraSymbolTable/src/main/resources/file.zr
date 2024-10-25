@@ -1,1 +1,2 @@
 int bob = 6;
+int bob = mike = steve = bree = 6;

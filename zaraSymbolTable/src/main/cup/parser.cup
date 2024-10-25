@@ -46,10 +46,10 @@ key_2 ::= CONST  | {: System.out.println("Parsed key_2 ::= CONST |"); :};
 key_3 ::= DATATYPE | {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
 
 //right hand size of a declaration.
-initialize ::= ASSIGN valueAssign {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
+initialize ::= ASSIGN valueAssign {:System.out.println("Parsed initialize ::= ASSIGN valueAssign");:};
 
-valueAssign ::= Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:}
-                | multipleAssign SEMI_COLON {:System.out.println("Parsed valueAssign ::= multipleAssign");:};
+valueAssign ::= firstmultipleAssign SEMI_COLON {:System.out.println("Parsed valueAssign ::= multipleAssign SEMI_COLON");:}
+                | Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:};
 
 
 firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign;
