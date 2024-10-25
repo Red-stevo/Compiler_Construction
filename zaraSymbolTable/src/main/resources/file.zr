@@ -1,2 +1,3 @@
 int bob = 6;
-int bob = mike = steve = bree = 6;
+while(bob > 5){};
+while(bob > 5){};

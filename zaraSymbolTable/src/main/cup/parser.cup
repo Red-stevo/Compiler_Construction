@@ -34,30 +34,40 @@ precedence left OPERATOR_MUL, OPERATOR_DIV;
 start with StmtList;
 
 StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
-           |  {:System.out.println("Parsed empty StmtList");:};
+           |  {: System.out.println("Parsed empty StmtList"); :}
+           | error SEMI_COLON  {: System.err.println("Error"); :}
+           | error PUNCTUATION_CURLED_RIGHT  {: System.err.println("Error"); :};
+
+Stmt ::= l_desclaration initialize {: System.out.println("Parsed Stmt ::= r_desclaration initialize"); :};
 
 //left hand variable declaration.
 l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclaration ::= keywords IDENTIFIER"); :};
 
 keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :};
 
-key_1 ::= GLOBAL | {: System.out.println("Parsed key_1 ::= GLOBAL | "); :};
-key_2 ::= CONST  | {: System.out.println("Parsed key_2 ::= CONST |"); :};
-key_3 ::= DATATYPE | {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
+key_1 ::= GLOBAL {: System.out.println("Parsed key_1 ::= GLOBAL | "); :}
+            | {: System.out.println("Parsed key_1 ::= epsilon "); :};
+
+
+key_2 ::= CONST  {: System.out.println("Parsed key_2 ::= CONST |"); :}
+            |{: System.out.println("Parsed key_2 ::= epsilon "); :};
+
+
+key_3 ::= DATATYPE {: System.out.println("Parsed key_3 ::= DATATYPE"); :}
+            | {: System.out.println("Parsed key_3 ::= epsilon "); :};
 
 //right hand size of a declaration.
-initialize ::= ASSIGN valueAssign {:System.out.println("Parsed initialize ::= ASSIGN valueAssign");:};
+initialize ::= ASSIGN valueAssign  {:System.out.println("Parsed initialize ::= ASSIGN valueAssign");:}
+                | SEMI_COLON {:System.out.println("Parsed initialize ::= SEMI_COLON");:};
 
 valueAssign ::= firstmultipleAssign SEMI_COLON {:System.out.println("Parsed valueAssign ::= multipleAssign SEMI_COLON");:}
                 | Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:};
 
+firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign");:};
 
-firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign;
+multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER multipleAssign");:}
+                    | {:System.out.println("Parsed multipleAssign ::= epsilon ");:};
 
-multipleAssign ::= ASSIGN IDENTIFIER multipleAssign
-                    | ;
-
-Stmt ::= l_desclaration initialize {:System.out.println("Parsed Stmt ::= r_desclaration initialize");:};
 
 Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
        | Expr OPERATOR_SUB Term {:System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");:}
@@ -71,7 +81,6 @@ Factor ::= CONSTANT {:System.out.println("Parsed Factor: CONSTANT");:}
          | IDENTIFIER {:System.out.println("Parsed Factor: IDENTIFIER");:}
          | FLOAT {:System.out.println("Parsed Factor: FLOAT");:}
          | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");:};
-
 
 
 
