@@ -1,8 +1,1 @@
-int num = 10 + 30;
-float bob = 3.54 + 54/7 + (54 * 43);
-bob = 6;
-int mike = (bob) + num = 18
-global const num2 = num3 = 6;
-num3 = 54;
-stack stack1;
-
+int bob = 6;

@@ -25,6 +25,7 @@ terminal CONST, GLOBAL, BREAK, IN, WHILE, IF, ELSE, ELSEIF, DO, FOR, RETURN, CON
 
 
 non terminal StmtList, Stmt, Expr, Term, Factor, keywords, l_desclaration, key_1, key_2, key_3, initialize;
+non terminal valueAssign, multipleAssign;
 
 
 precedence left OPERATOR_ADD, OPERATOR_SUB;
@@ -35,7 +36,7 @@ start with StmtList;
 StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
            |  {:System.out.println("Parsed empty StmtList");:};
 
-//Right hand variable declaration.
+//left hand variable declaration.
 l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclaration ::= keywords IDENTIFIER"); :};
 
 keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :};
@@ -44,8 +45,12 @@ key_1 ::= GLOBAL | {: System.out.println("Parsed key_1 ::= GLOBAL | "); :};
 key_2 ::= CONST  | {: System.out.println("Parsed key_2 ::= CONST |"); :};
 key_3 ::= DATATYPE | {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
 
-//left hand size of a declaration.
-initialize ::= ASSIGN Expr initialize | SEMI_COLON {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
+//right hand size of a declaration.
+initialize ::= ASSIGN valueAssign {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
+
+valueAssign ::= Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:}
+                | multipleAssign {:System.out.println("Parsed valueAssign ::= multipleAssign");:}; ;
+
 
 Stmt ::= l_desclaration initialize {:System.out.println("Parsed Stmt ::= r_desclaration initialize");:};
 
