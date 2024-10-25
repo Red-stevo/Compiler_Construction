@@ -4,3 +4,6 @@ int bree = steve = bob = chebby = brad = 43;
 string name = "Stephen Muiru";
 
 const arr arr1;
+
+const stack stack1 = <float>[43];
+global arr arr1 = <string>[bob];
