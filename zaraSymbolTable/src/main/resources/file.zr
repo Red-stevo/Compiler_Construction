@@ -1,4 +1,4 @@
 int bob = 6;
-int bree = 6 + 4;
+int bree = steve = bob = chebby = 24;
 
 string name = "Stephen Muiru";

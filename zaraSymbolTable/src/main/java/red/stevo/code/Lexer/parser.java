@@ -31,17 +31,18 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\040\000\002\002\004\000\002\002\004\000\002\002" +
+    "\000\044\000\002\002\004\000\002\002\004\000\002\002" +
     "\002\000\002\002\004\000\002\002\004\000\002\003\004" +
     "\000\002\010\004\000\002\007\005\000\002\011\003\000" +
     "\002\011\002\000\002\012\003\000\002\012\002\000\002" +
     "\013\003\000\002\013\002\000\002\014\004\000\002\014" +
     "\003\000\002\015\004\000\002\015\004\000\002\015\004" +
-    "\000\002\017\006\000\002\016\005\000\002\016\002\000" +
-    "\002\004\005\000\002\004\005\000\002\004\003\000\002" +
-    "\005\005\000\002\005\005\000\002\005\003\000\002\006" +
-    "\003\000\002\006\003\000\002\006\003\000\002\006\005" +
-    "" });
+    "\000\002\017\004\000\002\016\005\000\002\016\004\000" +
+    "\002\020\003\000\002\020\003\000\002\020\003\000\002" +
+    "\020\003\000\002\004\005\000\002\004\005\000\002\004" +
+    "\003\000\002\005\005\000\002\005\005\000\002\005\003" +
+    "\000\002\006\003\000\002\006\003\000\002\006\003\000" +
+    "\002\006\005" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -49,8 +50,8 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\061\000\016\002\uffff\003\004\004\uffff\034\uffff\042" +
-    "\uffff\043\uffff\001\002\000\006\027\062\035\063\001\002" +
+    "\000\063\000\016\002\uffff\003\004\004\uffff\034\uffff\042" +
+    "\uffff\043\uffff\001\002\000\006\027\064\035\065\001\002" +
     "\000\014\002\013\004\ufff8\034\ufff8\042\ufff8\043\007\001" +
     "\002\000\006\014\023\035\022\001\002\000\010\004\ufff9" +
     "\034\ufff9\042\ufff9\001\002\000\004\004\020\001\002\000" +
@@ -61,38 +62,39 @@ public class parser extends java_cup.runtime.lr_parser {
     "\004\004\ufffa\001\002\000\006\014\ufffb\035\ufffb\001\002" +
     "\000\014\002\ufffc\004\ufffc\034\ufffc\042\ufffc\043\ufffc\001" +
     "\002\000\014\002\ufff2\004\ufff2\034\ufff2\042\ufff2\043\ufff2" +
-    "\001\002\000\014\004\034\005\025\006\035\007\027\036" +
-    "\030\001\002\000\004\035\061\001\002\000\016\010\uffe5" +
-    "\011\uffe5\012\uffe5\013\uffe5\035\uffe5\037\uffe5\001\002\000" +
-    "\010\010\054\011\052\035\060\001\002\000\004\035\057" +
-    "\001\002\000\012\004\047\005\025\006\035\036\030\001" +
-    "\002\000\016\010\uffe9\011\uffe9\012\044\013\045\035\uffe9" +
-    "\037\uffe9\001\002\000\016\010\uffe6\011\uffe6\012\uffe6\013" +
-    "\uffe6\035\uffe6\037\uffe6\001\002\000\014\002\ufff3\004\ufff3" +
-    "\034\ufff3\042\ufff3\043\ufff3\001\002\000\016\010\uffe4\011" +
-    "\uffe4\012\uffe4\013\uffe4\014\036\035\uffe4\001\002\000\016" +
-    "\010\uffe3\011\uffe3\012\uffe3\013\uffe3\035\uffe3\037\uffe3\001" +
-    "\002\000\004\004\037\001\002\000\006\014\041\035\uffec" +
-    "\001\002\000\004\035\uffee\001\002\000\004\004\042\001" +
-    "\002\000\006\014\041\035\uffec\001\002\000\004\035\uffed" +
-    "\001\002\000\012\004\047\005\025\006\035\036\030\001" +
-    "\002\000\012\004\047\005\025\006\035\036\030\001\002" +
-    "\000\016\010\uffe7\011\uffe7\012\uffe7\013\uffe7\035\uffe7\037" +
-    "\uffe7\001\002\000\016\010\uffe4\011\uffe4\012\uffe4\013\uffe4" +
-    "\035\uffe4\037\uffe4\001\002\000\016\010\uffe8\011\uffe8\012" +
-    "\uffe8\013\uffe8\035\uffe8\037\uffe8\001\002\000\010\010\054" +
-    "\011\052\037\053\001\002\000\012\004\047\005\025\006" +
-    "\035\036\030\001\002\000\016\010\uffe2\011\uffe2\012\uffe2" +
-    "\013\uffe2\035\uffe2\037\uffe2\001\002\000\012\004\047\005" +
-    "\025\006\035\036\030\001\002\000\016\010\uffeb\011\uffeb" +
-    "\012\044\013\045\035\uffeb\037\uffeb\001\002\000\016\010" +
-    "\uffea\011\uffea\012\044\013\045\035\uffea\037\uffea\001\002" +
-    "\000\014\002\ufff0\004\ufff0\034\ufff0\042\ufff0\043\ufff0\001" +
-    "\002\000\014\002\uffef\004\uffef\034\uffef\042\uffef\043\uffef" +
-    "\001\002\000\014\002\ufff1\004\ufff1\034\ufff1\042\ufff1\043" +
-    "\ufff1\001\002\000\014\002\ufffd\004\ufffd\034\ufffd\042\ufffd" +
-    "\043\ufffd\001\002\000\014\002\ufffe\004\ufffe\034\ufffe\042" +
-    "\ufffe\043\ufffe\001\002" });
+    "\001\002\000\014\004\034\005\024\006\035\007\027\036" +
+    "\030\001\002\000\016\010\uffe1\011\uffe1\012\uffe1\013\uffe1" +
+    "\035\uffe1\037\uffe1\001\002\000\004\035\063\001\002\000" +
+    "\010\010\056\011\054\035\062\001\002\000\004\035\061" +
+    "\001\002\000\012\004\051\005\024\006\035\036\030\001" +
+    "\002\000\016\010\uffe5\011\uffe5\012\046\013\047\035\uffe5" +
+    "\037\uffe5\001\002\000\014\002\ufff3\004\ufff3\034\ufff3\042" +
+    "\ufff3\043\ufff3\001\002\000\016\010\uffe2\011\uffe2\012\uffe2" +
+    "\013\uffe2\035\uffe2\037\uffe2\001\002\000\016\010\uffe0\011" +
+    "\uffe0\012\uffe0\013\uffe0\014\037\035\uffe0\001\002\000\016" +
+    "\010\uffdf\011\uffdf\012\uffdf\013\uffdf\035\uffdf\037\uffdf\001" +
+    "\002\000\004\035\uffee\001\002\000\012\004\042\005\041" +
+    "\006\044\007\043\001\002\000\004\035\uffec\001\002\000" +
+    "\004\035\uffea\001\002\000\006\014\037\035\uffeb\001\002" +
+    "\000\004\035\uffe8\001\002\000\004\035\uffe9\001\002\000" +
+    "\004\035\uffed\001\002\000\012\004\051\005\024\006\035" +
+    "\036\030\001\002\000\012\004\051\005\024\006\035\036" +
+    "\030\001\002\000\016\010\uffe3\011\uffe3\012\uffe3\013\uffe3" +
+    "\035\uffe3\037\uffe3\001\002\000\016\010\uffe0\011\uffe0\012" +
+    "\uffe0\013\uffe0\035\uffe0\037\uffe0\001\002\000\016\010\uffe4" +
+    "\011\uffe4\012\uffe4\013\uffe4\035\uffe4\037\uffe4\001\002\000" +
+    "\010\010\056\011\054\037\055\001\002\000\012\004\051" +
+    "\005\024\006\035\036\030\001\002\000\016\010\uffde\011" +
+    "\uffde\012\uffde\013\uffde\035\uffde\037\uffde\001\002\000\012" +
+    "\004\051\005\024\006\035\036\030\001\002\000\016\010" +
+    "\uffe7\011\uffe7\012\046\013\047\035\uffe7\037\uffe7\001\002" +
+    "\000\016\010\uffe6\011\uffe6\012\046\013\047\035\uffe6\037" +
+    "\uffe6\001\002\000\014\002\ufff0\004\ufff0\034\ufff0\042\ufff0" +
+    "\043\ufff0\001\002\000\014\002\uffef\004\uffef\034\uffef\042" +
+    "\uffef\043\uffef\001\002\000\014\002\ufff1\004\ufff1\034\ufff1" +
+    "\042\ufff1\043\ufff1\001\002\000\014\002\ufffd\004\ufffd\034" +
+    "\ufffd\042\ufffd\043\ufffd\001\002\000\014\002\ufffe\004\ufffe" +
+    "\034\ufffe\042\ufffe\043\ufffe\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -100,25 +102,26 @@ public class parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\061\000\004\002\004\001\001\000\002\001\001\000" +
+    "\000\063\000\004\002\004\001\001\000\002\001\001\000" +
     "\012\003\010\007\007\010\005\011\011\001\001\000\004" +
     "\014\020\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\004\012\014\001\001\000\002\001\001" +
     "\000\002\001\001\000\004\013\016\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\014\004\025\005\030\006\031\015" +
-    "\032\017\023\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\010\004\050\005" +
-    "\030\006\031\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\016\037\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\016\042\001\001\000\002\001" +
-    "\001\000\004\006\047\001\001\000\004\006\045\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\006\005\055\006\031\001\001\000\002" +
-    "\001\001\000\006\005\054\006\031\001\001\000\002\001" +
+    "\000\002\001\001\000\014\004\025\005\030\006\032\015" +
+    "\031\017\024\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\010\004\052\005" +
+    "\030\006\032\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\016\035\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\020\037\001\001\000\002" +
+    "\001\001\000\002\001\001\000\004\016\044\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\006\051\001\001\000\004\006\047\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001" });
+    "\000\006\005\057\006\032\001\001\000\002\001\001\000" +
+    "\006\005\056\006\032\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -370,11 +373,11 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // firstmultipleAssign ::= IDENTIFIER ASSIGN IDENTIFIER multipleAssign 
+          case 19: // firstmultipleAssign ::= IDENTIFIER multipleAssign 
             {
               Object RESULT =null;
 		System.out.println("Parsed firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign");
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("firstmultipleAssign",13, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("firstmultipleAssign",13, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
@@ -388,16 +391,52 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // multipleAssign ::= 
+          case 21: // multipleAssign ::= ASSIGN multiAssignValue 
             {
               Object RESULT =null;
-		System.out.println("Parsed multipleAssign ::= epsilon ");
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("multipleAssign",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+		System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("multipleAssign",12, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // Expr ::= Expr OPERATOR_ADD Term 
+          case 22: // multiAssignValue ::= IDENTIFIER 
+            {
+              Object RESULT =null;
+		System.out.println("Parsed multiAssignValue ::= IDENTIFIER");
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("multiAssignValue",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 23: // multiAssignValue ::= CONSTANT 
+            {
+              Object RESULT =null;
+		System.out.println("Parsed multiAssignValue ::= CONSTANT");
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("multiAssignValue",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 24: // multiAssignValue ::= FLOAT 
+            {
+              Object RESULT =null;
+		System.out.println("Parsed multiAssignValue ::= FLOAT");
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("multiAssignValue",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 25: // multiAssignValue ::= STRING_LITERAL 
+            {
+              Object RESULT =null;
+		System.out.println("Parsed multiAssignValue ::= STRING_LITERAL");
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("multiAssignValue",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 26: // Expr ::= Expr OPERATOR_ADD Term 
             {
               Object RESULT =null;
 		System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");
@@ -406,7 +445,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // Expr ::= Expr OPERATOR_SUB Term 
+          case 27: // Expr ::= Expr OPERATOR_SUB Term 
             {
               Object RESULT =null;
 		System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");
@@ -415,7 +454,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // Expr ::= Term 
+          case 28: // Expr ::= Term 
             {
               Object RESULT =null;
 		System.out.println("Parsed Expr: Term");
@@ -424,7 +463,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // Term ::= Term OPERATOR_MUL Factor 
+          case 29: // Term ::= Term OPERATOR_MUL Factor 
             {
               Object RESULT =null;
 		System.out.println("Parsed Term: Term OPERATOR_MUL Factor");
@@ -433,7 +472,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // Term ::= Term OPERATOR_DIV Factor 
+          case 30: // Term ::= Term OPERATOR_DIV Factor 
             {
               Object RESULT =null;
 		System.out.println("Parsed Term: Term OPERATOR_DIV Factor");
@@ -442,7 +481,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // Term ::= Factor 
+          case 31: // Term ::= Factor 
             {
               Object RESULT =null;
 		System.out.println("Parsed Term: Factor");
@@ -451,7 +490,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // Factor ::= CONSTANT 
+          case 32: // Factor ::= CONSTANT 
             {
               Object RESULT =null;
 		System.out.println("Parsed Factor: CONSTANT");
@@ -460,7 +499,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // Factor ::= IDENTIFIER 
+          case 33: // Factor ::= IDENTIFIER 
             {
               Object RESULT =null;
 		System.out.println("Parsed Factor: IDENTIFIER");
@@ -469,7 +508,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // Factor ::= FLOAT 
+          case 34: // Factor ::= FLOAT 
             {
               Object RESULT =null;
 		System.out.println("Parsed Factor: FLOAT");
@@ -478,7 +517,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // Factor ::= PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT 
+          case 35: // Factor ::= PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT 
             {
               Object RESULT =null;
 		System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");

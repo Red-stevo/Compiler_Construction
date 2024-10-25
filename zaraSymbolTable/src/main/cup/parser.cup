@@ -25,7 +25,7 @@ terminal CONST, GLOBAL, BREAK, IN, WHILE, IF, ELSE, ELSEIF, DO, FOR, RETURN, CON
 
 
 non terminal StmtList, Stmt, Expr, Term, Factor, keywords, l_desclaration, key_1, key_2, key_3, initialize;
-non terminal valueAssign, multipleAssign, firstmultipleAssign;
+non terminal valueAssign, multipleAssign, firstmultipleAssign, multiAssignValue;
 
 
 precedence left OPERATOR_ADD, OPERATOR_SUB;
@@ -64,11 +64,15 @@ valueAssign ::= firstmultipleAssign SEMI_COLON {:System.out.println("Parsed valu
                 | STRING_LITERAL SEMI_COLON {:System.out.println("Parsed valueAssign ::=  STRING_LITERAL SEMI_COLON");:}
                 | Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:};
 
-firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign");:};
+firstmultipleAssign ::= IDENTIFIER multipleAssign {:System.out.println("Parsed firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign");:};
 
 multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER multipleAssign");:}
-                    | {:System.out.println("Parsed multipleAssign ::= epsilon ");:};
+                    | ASSIGN multiAssignValue {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");:};
 
+multiAssignValue ::= IDENTIFIER  {:System.out.println("Parsed multiAssignValue ::= IDENTIFIER");:}
+                    | CONSTANT  {:System.out.println("Parsed multiAssignValue ::= CONSTANT");:}
+                    | FLOAT  {:System.out.println("Parsed multiAssignValue ::= FLOAT");:}
+                    | STRING_LITERAL  {:System.out.println("Parsed multiAssignValue ::= STRING_LITERAL");:};
 
 Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
        | Expr OPERATOR_SUB Term {:System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");:}
