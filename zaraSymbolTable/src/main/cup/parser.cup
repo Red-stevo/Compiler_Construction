@@ -25,7 +25,7 @@ terminal CONST, GLOBAL, BREAK, IN, WHILE, IF, ELSE, ELSEIF, DO, FOR, RETURN, CON
 
 
 non terminal StmtList, Stmt, Expr, Term, Factor, keywords, l_desclaration, key_1, key_2, key_3, initialize;
-non terminal valueAssign, multipleAssign;
+non terminal valueAssign, multipleAssign, firstmultipleAssign;
 
 
 precedence left OPERATOR_ADD, OPERATOR_SUB;
@@ -49,8 +49,13 @@ key_3 ::= DATATYPE | {: System.out.println("Parsed key_3 ::= DATATYPE"); :};
 initialize ::= ASSIGN valueAssign {:System.out.println("Parsed initialize ::= ASSIGN Expr initialize | SEMI_COLON");:};
 
 valueAssign ::= Expr SEMI_COLON {:System.out.println("Parsed valueAssign ::= Expr SEMI_COLON");:}
-                | multipleAssign {:System.out.println("Parsed valueAssign ::= multipleAssign");:}; ;
+                | multipleAssign SEMI_COLON {:System.out.println("Parsed valueAssign ::= multipleAssign");:};
 
+
+firstmultipleAssign ::= IDENTIFIER  ASSIGN IDENTIFIER multipleAssign;
+
+multipleAssign ::= ASSIGN IDENTIFIER multipleAssign
+                    | ;
 
 Stmt ::= l_desclaration initialize {:System.out.println("Parsed Stmt ::= r_desclaration initialize");:};
 
