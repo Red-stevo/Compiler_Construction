@@ -26,10 +26,13 @@ terminal CONST, GLOBAL, BREAK, IN, WHILE, IF, ELSE, ELSEIF, DO, FOR, RETURN, CON
 
 non terminal StmtList, Stmt, Expr, Term, Factor, keywords, l_desclaration, key_1, key_2, key_3, initialize;
 non terminal valueAssign, multipleAssign, firstmultipleAssign, multiAssignValue;
+non terminal condition, boolTerm, boolFactor, relationOp;
 
 
 precedence left OPERATOR_ADD, OPERATOR_SUB;
 precedence left OPERATOR_MUL, OPERATOR_DIV;
+precedence left OPERATOR_OR OPERATOR_AND;
+precedence right OPERATOR_NOT;
 
 start with StmtList;
 
