@@ -29,7 +29,7 @@ import java_cup.runtime.Symbol;
 
 // KEYWORDS
 
-("int" | "float" | "string" | "arr" | "stack") {return new Symbol(sym.DATATYPE, yytext());}
+("int" | "float" | "string" | "arr" | "stack"| "bool") {return new Symbol(sym.DATATYPE, yytext());}
 
 "const"  {return new Symbol(sym.CONST);}
 "global"  {return new Symbol(sym.GLOBAL);}
