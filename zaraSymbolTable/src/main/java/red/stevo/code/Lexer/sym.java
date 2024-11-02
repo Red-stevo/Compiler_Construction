@@ -8,50 +8,52 @@ package red.stevo.code.Lexer;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int PUNCTUATION_COLON = 23;
-  public static final int PUNCTUATION_LEFT = 28;
+  public static final int PUNCTUATION_COLON = 25;
+  public static final int PUNCTUATION_LEFT = 30;
   public static final int STRING_LITERAL = 5;
-  public static final int PUNCTUATION_SQUARE_LEFT = 24;
-  public static final int CONST = 32;
-  public static final int CONTINUE = 43;
-  public static final int PUNCTUATION_SQUARE_RIGHT = 25;
-  public static final int PUNCTUATION_RIGHT = 29;
-  public static final int FOR = 41;
-  public static final int OPERATOR_GREATER = 11;
-  public static final int ELSEIF = 39;
-  public static final int OPERATOR_LESS_EQUAL = 15;
-  public static final int OPERATOR_GREATER_EQUAL = 14;
-  public static final int IN = 35;
-  public static final int OPERATOR_SUB = 7;
-  public static final int CLASS = 44;
-  public static final int PUNCTUATION_CURLED_RIGHT = 21;
-  public static final int DATATYPE = 26;
-  public static final int IF = 37;
-  public static final int ASSIGN = 10;
+  public static final int PUNCTUATION_SQUARE_LEFT = 26;
+  public static final int CONST = 34;
+  public static final int CONTINUE = 45;
+  public static final int PUNCTUATION_SQUARE_RIGHT = 27;
+  public static final int PUNCTUATION_RIGHT = 31;
+  public static final int FOR = 43;
+  public static final int OPERATOR_GREATER = 13;
+  public static final int ELSEIF = 41;
+  public static final int OPERATOR_LESS_EQUAL = 17;
+  public static final int OPERATOR_GREATER_EQUAL = 16;
+  public static final int IN = 37;
+  public static final int OPERATOR_SUB = 9;
+  public static final int CLASS = 46;
+  public static final int PUNCTUATION_CURLED_RIGHT = 23;
+  public static final int DATATYPE = 28;
+  public static final int IF = 39;
+  public static final int ASSIGN = 12;
   public static final int EOF = 0;
-  public static final int RETURN = 42;
-  public static final int KEYWORD = 30;
+  public static final int RETURN = 44;
+  public static final int KEYWORD = 32;
+  public static final int TRUE = 6;
   public static final int error = 1;
-  public static final int SEMI_COLON = 27;
-  public static final int GLOBAL = 33;
-  public static final int BREAK = 34;
+  public static final int SEMI_COLON = 29;
+  public static final int GLOBAL = 35;
+  public static final int BREAK = 36;
   public static final int CONSTANT = 3;
-  public static final int PUNCTUATION_COMMA = 22;
-  public static final int OPERATOR_LESS = 12;
-  public static final int OPERATOR_NOT_EQUAL = 31;
-  public static final int OPERATOR_NOT = 16;
-  public static final int OPERATOR_AND = 13;
-  public static final int ELSE = 38;
-  public static final int WHILE = 36;
-  public static final int OPERATOR_DIV = 9;
+  public static final int PUNCTUATION_COMMA = 24;
+  public static final int OPERATOR_LESS = 14;
+  public static final int OPERATOR_NOT_EQUAL = 33;
+  public static final int OPERATOR_NOT = 18;
+  public static final int OPERATOR_AND = 15;
+  public static final int ELSE = 40;
+  public static final int WHILE = 38;
+  public static final int OPERATOR_DIV = 11;
   public static final int FLOAT = 4;
-  public static final int OPERATOR_OR = 17;
-  public static final int OPERATOR_DOT = 18;
-  public static final int OPERATOR_EQUAL = 19;
-  public static final int PUNCTUATION_CURLED_LEFT = 20;
-  public static final int OPERATOR_MUL = 8;
-  public static final int OPERATOR_ADD = 6;
-  public static final int DO = 40;
+  public static final int OPERATOR_OR = 19;
+  public static final int OPERATOR_DOT = 20;
+  public static final int OPERATOR_EQUAL = 21;
+  public static final int FALSE = 7;
+  public static final int PUNCTUATION_CURLED_LEFT = 22;
+  public static final int OPERATOR_MUL = 10;
+  public static final int OPERATOR_ADD = 8;
+  public static final int DO = 42;
   public static final int IDENTIFIER = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -60,6 +62,8 @@ public interface sym {
   "CONSTANT",
   "FLOAT",
   "STRING_LITERAL",
+  "TRUE",
+  "FALSE",
   "OPERATOR_ADD",
   "OPERATOR_SUB",
   "OPERATOR_MUL",

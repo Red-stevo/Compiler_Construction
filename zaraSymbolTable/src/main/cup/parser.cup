@@ -29,9 +29,8 @@ non terminal valueAssign, multipleAssign, firstmultipleAssign, multiAssignValue;
 non terminal condition, boolTerm, boolFactor, relationOp;
 
 
-precedence left OPERATOR_ADD, OPERATOR_SUB;
+precedence left OPERATOR_ADD, OPERATOR_SUB, OPERATOR_OR, OPERATOR_AND;
 precedence left OPERATOR_MUL, OPERATOR_DIV;
-precedence left OPERATOR_OR OPERATOR_AND;
 precedence right OPERATOR_NOT;
 
 start with StmtList;
@@ -107,13 +106,15 @@ Factor ::= CONSTANT {:System.out.println("Parsed Factor: CONSTANT");:}
          | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");:}
          ;
 
+
+// working with condtionals.
 condition ::= boolTerm   {:System.out.println("Parsedcondition ::= boolTerm  ");:}
               | condition  OPERATOR_OR boolTerm {:System.out.println("Parsedcondition ::=  condition  OPERATOR_OR boolTerm");:}
               ;
 
 
-boolTerm ::= boolFactor     {:System.out.println("Parsed boolTerm ::= boolFactor");:}
-            | boolTerm OPERATOR_AND boolFactor   {:System.out.println("Parsed boolTerm ::=  boolTerm OPERATOR_AND boolFactor ");:}
+boolTerm ::= boolFactor    {:System.out.println("Parsed boolTerm ::= boolFactor");:}
+            | boolTerm OPERATOR_AND boolFactor {:System.out.println("Parsed boolTerm ::=  boolTerm OPERATOR_AND boolFactor ");:}
             ;
 
 boolFactor ::=   TRUE  {:System.out.println("Parsed boolFactor ::=   TRUE");:}
@@ -124,12 +125,12 @@ boolFactor ::=   TRUE  {:System.out.println("Parsed boolFactor ::=   TRUE");:}
                ;
 
 
-relationOp ::=   OPERATOR_NOT_EQUAL  {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
-               | OPERATOR_GREATER
-               | OPERATOR_LESS
-               | OPERATOR_GREATER_EQUAL
-               | OPERATOR_LESS_EQUAL
-               | OPERATOR_EQUAL
+relationOp ::=   OPERATOR_NOT_EQUAL  {:System.out.println("Parsed relationOp ::=  OPERATOR_NOT_EQUAL");:}
+               | OPERATOR_GREATER   {:System.out.println("Parsed relationOp ::=  OPERATOR_GREATER ");:}
+               | OPERATOR_LESS  {:System.out.println("Parsed relationOp ::=  OPERATOR_LESS");:}
+               | OPERATOR_GREATER_EQUAL {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
+               | OPERATOR_LESS_EQUAL    {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
+               | OPERATOR_EQUAL {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
                ;
 
 
