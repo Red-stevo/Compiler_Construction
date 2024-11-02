@@ -63,20 +63,23 @@ import java_cup.runtime.Symbol;
 }
 
 // OPERATORS
-"!="   {return new Symbol(sym.OPERATOR_NOT_EQUAL);}
-">"  {return new Symbol(sym.OPERATOR_GREATER);}
-"<"  {return new Symbol(sym.OPERATOR_LESS);}
-"&&"  {return new Symbol(sym.OPERATOR_AND);}
-">="  {return new Symbol(sym.OPERATOR_GREATER_EQUAL);}
-"<="  {return new Symbol(sym.OPERATOR_LESS_EQUAL);}
-"!"  {return new Symbol(sym.OPERATOR_NOT);}
-"||"  {return new Symbol(sym.OPERATOR_OR);}
-"."  {return new Symbol(sym.OPERATOR_DOT);}
-"=="  {return new Symbol(sym.OPERATOR_EQUAL);}
-"+"   {return new Symbol(sym.OPERATOR_ADD);}
-"-"   {return new Symbol(sym.OPERATOR_SUB);}
-"*"   {return new Symbol(sym.OPERATOR_MUL);}
-"/"   {return new Symbol(sym.OPERATOR_DIV);}
+"!="     {return new Symbol(sym.OPERATOR_NOT_EQUAL);}
+">"      {return new Symbol(sym.OPERATOR_GREATER);}
+"<"      {return new Symbol(sym.OPERATOR_LESS);}
+"&&"     {return new Symbol(sym.OPERATOR_AND);}
+">="     {return new Symbol(sym.OPERATOR_GREATER_EQUAL);}
+"<="     {return new Symbol(sym.OPERATOR_LESS_EQUAL);}
+"!"      {return new Symbol(sym.OPERATOR_NOT);}
+"||"     {return new Symbol(sym.OPERATOR_OR);}
+"."      {return new Symbol(sym.OPERATOR_DOT);}
+"=="     {return new Symbol(sym.OPERATOR_EQUAL);}
+"+"      {return new Symbol(sym.OPERATOR_ADD);}
+"-"      {return new Symbol(sym.OPERATOR_SUB);}
+"*"      {return new Symbol(sym.OPERATOR_MUL);}
+"/"      {return new Symbol(sym.OPERATOR_DIV);}
+"true"   {return new Symbol(sym.TRUE);}
+"false"  {return new Symbol(sym.FALSE);}
+
 
 
 

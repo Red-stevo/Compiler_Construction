@@ -15,7 +15,7 @@ parser code {:
 
 :};
 
-terminal IDENTIFIER, CONSTANT, FLOAT, STRING_LITERAL;
+terminal IDENTIFIER, CONSTANT, FLOAT, STRING_LITERAL, TRUE, FALSE;
 terminal OPERATOR_ADD, OPERATOR_SUB, OPERATOR_MUL, OPERATOR_DIV, ASSIGN, OPERATOR_GREATER, OPERATOR_LESS, OPERATOR_AND;
 terminal OPERATOR_GREATER_EQUAL, OPERATOR_LESS_EQUAL, OPERATOR_NOT, OPERATOR_OR, OPERATOR_DOT, OPERATOR_EQUAL;
 terminal PUNCTUATION_CURLED_LEFT, PUNCTUATION_CURLED_RIGHT, PUNCTUATION_COMMA, PUNCTUATION_COLON;
@@ -39,29 +39,37 @@ start with StmtList;
 StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
            |  {: System.out.println("Parsed empty StmtList"); :}
            | error SEMI_COLON  {: System.err.println("Error"); :}
-           | error PUNCTUATION_CURLED_RIGHT  {: System.err.println("Error"); :};
+           | error PUNCTUATION_CURLED_RIGHT  {: System.err.println("Error"); :}
+           ;
 
-Stmt ::= l_desclaration initialize {: System.out.println("Parsed Stmt ::= r_desclaration initialize"); :};
+Stmt ::= l_desclaration initialize {: System.out.println("Parsed Stmt ::= r_desclaration initialize"); :}
+        ;
 
 //left hand variable declaration.
-l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclaration ::= keywords IDENTIFIER"); :};
+l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclaration ::= keywords IDENTIFIER"); :}
+                    ;
 
-keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :};
+keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :}
+            ;
 
 key_1 ::= GLOBAL {: System.out.println("Parsed key_1 ::= GLOBAL | "); :}
-            |    {: System.out.println("Parsed key_1 ::= epsilon "); :};
+            |    {: System.out.println("Parsed key_1 ::= epsilon "); :}
+            ;
 
 
 key_2 ::= CONST  {: System.out.println("Parsed key_2 ::= CONST |"); :}
-            |    {: System.out.println("Parsed key_2 ::= epsilon "); :};
+            |    {: System.out.println("Parsed key_2 ::= epsilon "); :}
+            ;
 
 
 key_3 ::= DATATYPE   {: System.out.println("Parsed key_3 ::= DATATYPE"); :}
-         |           {: System.out.println("Parsed key_3 ::= epsilon "); :};
+         |           {: System.out.println("Parsed key_3 ::= epsilon "); :}
+         ;
 
 //right hand size of a declaration.
 initialize ::= ASSIGN valueAssign SEMI_COLON  {:System.out.println("Parsed initialize ::= ASSIGN valueAssign SEMI_COLON");:}
-                | SEMI_COLON       {:System.out.println("Parsed initialize ::= SEMI_COLON");:};
+                | SEMI_COLON       {:System.out.println("Parsed initialize ::= SEMI_COLON");:}
+                ;
 
 valueAssign ::= IDENTIFIER multipleAssign  {:System.out.println("Parsed valueAssign ::= multipleAssign");:}
                 | STRING_LITERAL  {:System.out.println("Parsed valueAssign ::=  STRING_LITERAL");:}
@@ -69,28 +77,71 @@ valueAssign ::= IDENTIFIER multipleAssign  {:System.out.println("Parsed valueAss
                 System.out.println("Parsed valueAssign ::= OPERATOR_LESS DATATYPE OPERATOR_GREATER PUNCTUATION_SQUARE_LEFT Expr PUNCTUATION_SQUARE_RIGHT");
                 :}
 
-                | Expr  {:System.out.println("Parsed valueAssign ::= Expr");:};
+                | Expr  {:System.out.println("Parsed valueAssign ::= Expr");:}
+                ;
 
 multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER multipleAssign");:}
-                   | ASSIGN multiAssignValue {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");:};
+                   | ASSIGN multiAssignValue {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");:}
+                   ;
+
 
 multiAssignValue ::= IDENTIFIER  {:System.out.println("Parsed multiAssignValue ::= IDENTIFIER");:}
                     | CONSTANT  {:System.out.println("Parsed multiAssignValue ::= CONSTANT");:}
                     | FLOAT  {:System.out.println("Parsed multiAssignValue ::= FLOAT");:}
-                    | STRING_LITERAL  {:System.out.println("Parsed multiAssignValue ::= STRING_LITERAL");:};
+                    | STRING_LITERAL  {:System.out.println("Parsed multiAssignValue ::= STRING_LITERAL");:}
+                    ;
 
 Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
        | Expr OPERATOR_SUB Term {:System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");:}
-       | Term {:System.out.println("Parsed Expr: Term");:};
+       | Term {:System.out.println("Parsed Expr: Term");:}
+       ;
 
 Term ::= Term OPERATOR_MUL Factor {:System.out.println("Parsed Term: Term OPERATOR_MUL Factor");:}
        | Term OPERATOR_DIV Factor {:System.out.println("Parsed Term: Term OPERATOR_DIV Factor");:}
-       | Factor {:System.out.println("Parsed Term: Factor");:};
+       | Factor {:System.out.println("Parsed Term: Factor");:}
+       ;
 
 Factor ::= CONSTANT {:System.out.println("Parsed Factor: CONSTANT");:}
          | IDENTIFIER {:System.out.println("Parsed Factor: IDENTIFIER");:}
          | FLOAT {:System.out.println("Parsed Factor: FLOAT");:}
-         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");:};
+         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");:}
+         ;
+
+condition ::= boolTerm   {:System.out.println("Parsedcondition ::= boolTerm  ");:}
+              | condition  OPERATOR_OR boolTerm {:System.out.println("Parsedcondition ::=  condition  OPERATOR_OR boolTerm");:}
+              ;
+
+
+boolTerm ::= boolFactor     {:System.out.println("Parsed boolTerm ::= boolFactor");:}
+            | boolTerm OPERATOR_AND boolFactor   {:System.out.println("Parsed boolTerm ::=  boolTerm OPERATOR_AND boolFactor ");:}
+            ;
+
+boolFactor ::=   TRUE  {:System.out.println("Parsed boolFactor ::=   TRUE");:}
+               | FALSE  {:System.out.println("Parsed boolFactor ::=  FALSE");:}
+               | OPERATOR_NOT   {:System.out.println("Parsed boolFactor ::=  OPERATOR_NOT");:}
+               | PUNCTUATION_LEFT condition PUNCTUATION_RIGHT   {:System.out.println("Parsed boolFactor ::= PUNCTUATION_LEFT condition PUNCTUATION_RIGHT");:}
+               | Expr relationOp Expr   {:System.out.println("Parsed boolFactor ::= Expr relationOp Expr ");:}
+               ;
+
+
+relationOp ::=   OPERATOR_NOT_EQUAL  {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
+               | OPERATOR_GREATER
+               | OPERATOR_LESS
+               | OPERATOR_GREATER_EQUAL
+               | OPERATOR_LESS_EQUAL
+               | OPERATOR_EQUAL
+               ;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
