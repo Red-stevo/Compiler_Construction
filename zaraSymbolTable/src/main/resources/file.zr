@@ -7,4 +7,3 @@
 
 # const stack stack1 = <float>[43];
 # global arr arr1 = <string>[bob];
-bool boolean = ((43 + 43) > 54);

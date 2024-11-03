@@ -67,7 +67,7 @@ key_3 ::= DATATYPE   {: System.out.println("Parsed key_3 ::= DATATYPE"); :}
 
 //right hand size of a declaration.
 initialize ::= ASSIGN valueAssign SEMI_COLON  {:System.out.println("Parsed initialize ::= ASSIGN valueAssign SEMI_COLON");:}
-                | SEMI_COLON       {:System.out.println("Parsed initialize ::= SEMI_COLON");:}
+                | SEMI_COLON    {:System.out.println("Parsed initialize ::= SEMI_COLON");:}
                 ;
 
 valueAssign ::= IDENTIFIER multipleAssign  {:System.out.println("Parsed valueAssign ::= multipleAssign");:}
@@ -117,7 +117,7 @@ boolTerm ::= boolFactor    {:System.out.println("Parsed boolTerm ::= boolFactor"
             | boolTerm OPERATOR_AND boolFactor {:System.out.println("Parsed boolTerm ::=  boolTerm OPERATOR_AND boolFactor ");:}
             ;
 
-boolFactor ::=   TRUE  {:System.out.println("Parsed boolFactor ::=   TRUE");:}
+boolFactor ::=  TRUE  {:System.out.println("Parsed boolFactor ::=   TRUE");:}
                | FALSE  {:System.out.println("Parsed boolFactor ::=  FALSE");:}
                | OPERATOR_NOT   {:System.out.println("Parsed boolFactor ::=  OPERATOR_NOT");:}
                | PUNCTUATION_LEFT condition PUNCTUATION_RIGHT   {:System.out.println("Parsed boolFactor ::= PUNCTUATION_LEFT condition PUNCTUATION_RIGHT");:}
