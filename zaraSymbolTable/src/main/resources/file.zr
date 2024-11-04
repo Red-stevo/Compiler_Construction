@@ -1,12 +1,15 @@
-# int bob = 6;
-# int bree = steve = bob = chebby = brad = 43;
+int bob = 6;
+int bree = steve = bob = chebby = brad = 43;
 
-# string name = "Stephen Muiru";
+string name = "Stephen Muiru";
 
-# const arr arr1;
+const arr arr1;
 
-# const stack stack1 = <float>[43];
-# global arr arr1 = <string>[bob];
+const stack stack1 = <float>[43];
+global arr arr1 = <string>[bob];
 bool isBool = true;
 isBool = 56 > 89;
-isBool = (34 <= 54) && (34 > 1 || 44 < 5);
+isBool = notBool =  (34 <= 54) && (34 > 1 || 44 < 5);
+
+
+

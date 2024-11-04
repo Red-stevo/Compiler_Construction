@@ -88,6 +88,7 @@ multiAssignValue ::= IDENTIFIER  {:System.out.println("Parsed multiAssignValue :
                     | CONSTANT  {:System.out.println("Parsed multiAssignValue ::= CONSTANT");:}
                     | FLOAT  {:System.out.println("Parsed multiAssignValue ::= FLOAT");:}
                     | STRING_LITERAL  {:System.out.println("Parsed multiAssignValue ::= STRING_LITERAL");:}
+                    | condition  {:System.out.println("Parsed valueAssign ::= condition");:}
                     ;
 
 Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
