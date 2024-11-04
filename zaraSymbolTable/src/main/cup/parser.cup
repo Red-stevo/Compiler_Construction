@@ -75,8 +75,8 @@ valueAssign ::= IDENTIFIER multipleAssign  {:System.out.println("Parsed valueAss
                 | OPERATOR_LESS DATATYPE OPERATOR_GREATER PUNCTUATION_SQUARE_LEFT Expr PUNCTUATION_SQUARE_RIGHT {:
                 System.out.println("Parsed valueAssign ::= OPERATOR_LESS DATATYPE OPERATOR_GREATER PUNCTUATION_SQUARE_LEFT Expr PUNCTUATION_SQUARE_RIGHT");
                 :}
-
                 | Expr  {:System.out.println("Parsed valueAssign ::= Expr");:}
+                | condition  {:System.out.println("Parsed valueAssign ::= condition");:}
                 ;
 
 multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER multipleAssign");:}

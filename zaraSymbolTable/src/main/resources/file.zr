@@ -7,3 +7,6 @@
 
 # const stack stack1 = <float>[43];
 # global arr arr1 = <string>[bob];
+bool isBool = true;
+isBool = 56 > 89;
+isBool = (34 <= 54) && (34 > 1 || 44 < 5);
