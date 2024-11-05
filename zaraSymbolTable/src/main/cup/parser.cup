@@ -43,6 +43,7 @@ StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt"
 
 Stmt ::= l_desclaration initialize {: System.out.println("Parsed Stmt ::= r_desclaration initialize"); :}
          | IF PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT  StmtList PUNCTUATION_CURLED_RIGHT
+         | WHILE PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT  StmtList PUNCTUATION_CURLED_RIGHT
         ;
 
 //left hand variable declaration.
