@@ -36,110 +36,298 @@ start with StmtList;
 
 //program execution starts here.
 //errors are detected and handled here.
-StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
-           |  {: System.out.println("Parsed empty StmtList"); :}
-           | error SEMI_COLON  {: System.err.println("Error"); :}
-           | error PUNCTUATION_CURLED_RIGHT  {: System.err.println("Error"); :}
+StmtList ::= StmtList Stmt {:
+    result = new ArrayList<>();
+    result.addAll((ArrayList) $1);
+    result.add($2);
+:}
+           |  {:
+    // Empty statement list
+    result = new ArrayList<>();
+    :}
+           | error SEMI_COLON  {:
+    // Handle error
+    System.err.println("Error: Unexpected semicolon.");
+    result = null;
+    :}
+           | error PUNCTUATION_CURLED_RIGHT  {:
+    // Handle error
+    System.err.println("Error: Unexpected curly right bracket.");
+    result = null;
+    :}
            ;
 
 // Statement rules, including class, function, and variable declarations
-Stmt ::= VarDecl {: System.out.println("Parsed Stmt ::= VarDecl"); :}
-         | IF PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
-         | WHILE PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
-         | FuncDecl {: System.out.println("Parsed Stmt ::= FuncDecl"); :}
-         | ClassDecl {: System.out.println("Parsed Stmt ::= ClassDecl"); :}
+Stmt ::= VarDecl {:
+    // Process variable declaration
+    result = $1;
+    :}
+         | IF PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT {:
+    // Process if statement
+    result = new IfStmt($3, (ArrayList) $5);
+    :}
+         | WHILE PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT {:
+    // Process while loop
+    result = new WhileStmt($3, (ArrayList) $5);
+    :}
+         | FuncDecl {:
+    // Process function declaration
+    result = $1;
+    :}
+         | ClassDecl {:
+    // Process class declaration
+    result = $1;
+    :}
          ;
 
 // Class Declaration
 ClassDecl ::= CLASS IDENTIFIER PUNCTUATION_CURLED_LEFT ClassBody PUNCTUATION_CURLED_RIGHT
   {:
-
+    // Create a class node in AST
+    result = new ClassDeclNode($2, (ArrayList) $4);
   :}
   ;
 
 // Class Body
 ClassBody ::= ClassBody ClassMember
-            | {: System.out.println("Parsed empty ClassBody"); :}
+            {:
+    // Add class member to body
+    result = new ArrayList<>();
+    ((ArrayList) $1).add($2);
+  :}
+            | {:
+    // Empty class body
+    result = new ArrayList<>();
+    :}
             ;
 
 // Class Member (variables or functions)
-ClassMember ::= VarDecl {: System.out.println("Parsed ClassMember ::= Variable Declaration"); :}
-              | FuncDecl {: System.out.println("Parsed ClassMember ::= FuncDecl"); :}
+ClassMember ::= VarDecl {:
+    // Add variable declaration as a class member
+    result = $1;
+  :}
+              | FuncDecl {:
+    // Add function declaration as a class member
+    result = $1;
+  :}
               ;
 
 // Variable Declaration
 VarDecl ::= DATATYPE IDENTIFIER initialize
   {:
-    System.out.println("Parsed VarDecl ::= DATATYPE IDENTIFIER initialize");
+    // Create variable declaration node
+    result = new VarDeclNode($1, $2, $3);
   :}
   ;
 
 // Right-hand side of variable declaration (assignment or empty initialization)
-initialize ::= ASSIGN valueAssign SEMI_COLON  {: System.out.println("Parsed initialize ::= ASSIGN valueAssign SEMI_COLON"); :}
-             | SEMI_COLON    {: System.out.println("Parsed initialize ::= SEMI_COLON"); :}
+initialize ::= ASSIGN valueAssign SEMI_COLON  {:
+    // Handle assignment during initialization
+    result = new Assignment($2);
+  :}
+             | SEMI_COLON    {:
+    // Empty initialization (uninitialized variable)
+    result = null;
+  :}
              ;
 
 // Value assignment
-valueAssign ::= IDENTIFIER multipleAssign  {:System.out.println("Parsed valueAssign ::= multipleAssign");:}
-              | STRING_LITERAL  {:System.out.println("Parsed valueAssign ::= STRING_LITERAL");:}
-              | Expr  {:System.out.println("Parsed valueAssign ::= Expr");:}
-              | condition  {:System.out.println("Parsed valueAssign ::= condition");:}
+valueAssign ::= IDENTIFIER multipleAssign  {:
+    // Handle multiple assignment
+    result = new MultipleAssignment($1, $2);
+  :}
+              | STRING_LITERAL  {:
+    // Handle string literal assignment
+    result = new StringLiteral($1);
+  :}
+              | Expr  {:
+    // Handle expression assignment
+    result = $1;
+  :}
+              | condition  {:
+    // Handle condition assignment
+    result = $1;
+  :}
               ;
 
 // Multiple assignment
-multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER multipleAssign");:}
-                 | ASSIGN multiAssignValue {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");:}
+multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:
+    // Handle assignment to identifier and another assignment
+    result = new MultipleAssign($2, $3);
+  :}
+                 | ASSIGN multiAssignValue {:
+    // Handle multiple value assignment
+    result = $2;
+  :}
                  ;
 
 // Function Declaration
 FuncDecl ::= DATATYPE IDENTIFIER PUNCTUATION_LEFT ParamList PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
   {:
-
+    // Create function declaration node
+    result = new FuncDeclNode($1, $2, (ArrayList) $4, (ArrayList) $6);
   :};
 
 // Parameter List in Function Declaration
 ParamList ::= ParamList PUNCTUATION_COMMA Param
+            {:
+    // Add parameter to the list
+    result = new ArrayList<>();
+    ((ArrayList) $1).add($3);
+  :}
             | Param
-            | {: System.out.println("Parsed empty ParamList"); :};
+            {:
+    // Single parameter
+    result = new ArrayList<>();
+    result.add($1);
+  :}
+            | {:
+    // Empty parameter list
+    result = new ArrayList<>();
+  :};
 
-Param ::= DATATYPE IDENTIFIER {: System.out.println("Parsed Param ::= DATATYPE IDENTIFIER"); :}
+// Parameter
+Param ::= DATATYPE IDENTIFIER {:
+    // Create a parameter node
+    result = new ParamNode($1, $2);
+  :}
         ;
 
 // Function Call
 Expr ::= IDENTIFIER PUNCTUATION_LEFT ArgList PUNCTUATION_RIGHT
-       {: System.out.println("Parsed Function Call"); :}
+       {:
+    // Create function call expression
+    result = new FunctionCall($1, (ArrayList) $3);
+  :}
        ;
 
 // Argument List in Function Call
 ArgList ::= ArgList PUNCTUATION_COMMA Expr
+          {:
+    // Add argument to the list
+    result = new ArrayList<>();
+    ((ArrayList) $1).add($3);
+  :}
           | Expr
-          | {: System.out.println("Parsed empty ArgList"); :}
+          {:
+    // Single argument
+    result = new ArrayList<>();
+    result.add($1);
+  :}
+          | {:
+    // Empty argument list
+    result = new ArrayList<>();
+  :}
           ;
 
 // Expression rules
-Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
-       | Expr OPERATOR_SUB Term {:System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");:}
-       | Term {:System.out.println("Parsed Expr: Term");:}
+Expr ::= Expr OPERATOR_ADD Term {:
+    // Add terms in an expression
+    result = new AddExpr($1, $3);
+  :}
+       | Expr OPERATOR_SUB Term {:
+    // Subtract terms in an expression
+    result = new SubtractExpr($1, $3);
+  :}
+       | Term {:
+    // Single term expression
+    result = $1;
+  :}
        ;
 
 // Term rules
-Term ::= Term OPERATOR_MUL Factor {:System.out.println("Parsed Term: Term OPERATOR_MUL Factor");:}
-       | Term OPERATOR_DIV Factor {:System.out.println("Parsed Term: Term OPERATOR_DIV Factor");:}
-       | Factor {:System.out.println("Parsed Term: Factor");:}
+Term ::= Term OPERATOR_MUL Factor {:
+    // Multiply terms
+    result = new MultiplyExpr($1, $3);
+  :}
+       | Term OPERATOR_DIV Factor {:
+    // Divide terms
+    result = new DivideExpr($1, $3);
+  :}
+       | Factor {:
+    // Single factor term
+    result = $1;
+  :}
        ;
 
 // Factor rules
-Factor ::= CONSTANT {:System.out.println("Parsed Factor: CONSTANT");:}
-         | IDENTIFIER {:System.out.println("Parsed Factor: IDENTIFIER");:}
-         | FLOAT {:System.out.println("Parsed Factor: FLOAT");:}
-         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: ( Expr )");:}
+Factor ::= CONSTANT {:
+    // Process constant value
+    result = new ConstantFactor($1);
+  :}
+         | IDENTIFIER {:
+    // Process identifier
+    result = new IdentifierFactor($1);
+  :}
+         | FLOAT {:
+    // Process float value
+    result = new FloatFactor($1);
+  :}
+         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:
+    // Process expression inside parentheses
+    result = $2;
+  :}
          ;
 
 // Conditional expressions
-condition ::= boolTerm {:System.out.println("Parsed condition ::= boolTerm");:}
-              | condition OPERATOR_OR boolTerm {:System.out.println("Parsed condition ::= condition OPERATOR_OR boolTerm");:}
+condition ::= boolTerm {:
+    // Process boolean term
+    result = $1;
+  :}
+              | condition OPERATOR_OR boolTerm {:
+    // Process OR condition
+    result = new OrCondition($1, $3);
+  :}
               ;
 
+// Boolean term processing
+boolTerm ::= boolFactor {:
+    // Process boolean factor
+    result = $1;
+  :}
+             | boolTerm OPERATOR_AND boolFactor {:
+    // Process AND condition
+    result = new AndCondition($1, $3);
+  :}
+             ;
+
+// Boolean factors (true/false and negations)
+boolFactor ::= TRUE {:
+    // Process TRUE boolean value
+    result = new BooleanFactor(true);
+  :}
+             | FALSE {:
+    // Process FALSE boolean value
+    result = new BooleanFactor(false);
+  :}
+             | PUNCTUATION_LEFT condition PUNCTUATION_RIGHT {:
+    // Process boolean condition inside parentheses
+    result = $2;
+  :}
+             | OPERATOR_NOT boolFactor {:
+    // Negate boolean condition
+    result = new NotCondition($2);
+  :}
+             ;
+
 // Relational operators
-relationOp ::= OPERATOR_NOT_EQUAL {:System.out.println("Parsed relationOp ::= OPERATOR_NO"); :}
+relationOp ::= OPERATOR_GREATER {:
+    result = new GreaterThan();
+  :}
+            | OPERATOR_LESS {:
+    result = new LessThan();
+  :}
+            | OPERATOR_EQUAL {:
+    result = new Equals();
+  :}
+            | OPERATOR_NOT_EQUAL {:
+    result = new NotEquals();
+  :}
+            | OPERATOR_GREATER_EQUAL {:
+    result = new GreaterOrEqual();
+  :}
+            | OPERATOR_LESS_EQUAL {:
+    result = new LessOrEqual();
+  :}
             ;
+

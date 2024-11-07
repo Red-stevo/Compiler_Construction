@@ -1,4 +1,4 @@
-package red.stevo.code.SymbolTable;
+package red.stevo.code.Lexer;
 
 import org.antlr.v4.runtime.*;
 import java_cup.runtime.Symbol;
