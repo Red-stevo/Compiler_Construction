@@ -23,11 +23,10 @@ terminal PUNCTUATION_SQUARE_LEFT, PUNCTUATION_SQUARE_RIGHT, DATATYPE;
 terminal SEMI_COLON, PUNCTUATION_LEFT, PUNCTUATION_RIGHT, KEYWORD, OPERATOR_NOT_EQUAL;
 terminal CONST, GLOBAL, BREAK, IN, WHILE, IF, ELSE, ELSEIF, DO, FOR, RETURN, CONTINUE, CLASS;
 
-
-non terminal StmtList, Stmt, Expr, Term, Factor, keywords, l_desclaration, key_1, key_2, key_3, initialize;
-non terminal valueAssign, multipleAssign, firstmultipleAssign, multiAssignValue;
+non terminal StmtList, Stmt, Expr, Term, Factor, l_declaration, initialize;
+non terminal valueAssign, multipleAssign, multiAssignValue;
 non terminal condition, boolTerm, boolFactor, relationOp;
-
+non terminal ClassDecl, ClassBody, ClassMember, FuncDecl, VarDecl, ParamList, Param, ArgList;
 
 precedence left OPERATOR_ADD, OPERATOR_SUB, OPERATOR_OR, OPERATOR_AND;
 precedence left OPERATOR_MUL, OPERATOR_DIV;
@@ -35,117 +34,112 @@ precedence right OPERATOR_NOT;
 
 start with StmtList;
 
+//program execution starts here.
+//errors are detected and handled here.
 StmtList ::= StmtList Stmt {:System.out.println("Parsed StmtList: StmtList Stmt");:}
            |  {: System.out.println("Parsed empty StmtList"); :}
            | error SEMI_COLON  {: System.err.println("Error"); :}
            | error PUNCTUATION_CURLED_RIGHT  {: System.err.println("Error"); :}
            ;
 
-Stmt ::= l_desclaration initialize {: System.out.println("Parsed Stmt ::= r_desclaration initialize"); :}
-         | IF PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT  StmtList PUNCTUATION_CURLED_RIGHT
-         | WHILE PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT  StmtList PUNCTUATION_CURLED_RIGHT
-        ;
-
-//left hand variable declaration.
-l_desclaration ::= keywords IDENTIFIER {: System.out.println("Parsed l_desclaration ::= keywords IDENTIFIER"); :}
-                    ;
-
-keywords ::= key_1 key_2 key_3  {: System.out.println("Parsed keywords ::= key_1 key_2 key_3"); :}
-            ;
-
-key_1 ::= GLOBAL {: System.out.println("Parsed key_1 ::= GLOBAL | "); :}
-            |    {: System.out.println("Parsed key_1 ::= epsilon "); :}
-            ;
-
-
-key_2 ::= CONST  {: System.out.println("Parsed key_2 ::= CONST |"); :}
-            |    {: System.out.println("Parsed key_2 ::= epsilon "); :}
-            ;
-
-
-key_3 ::= DATATYPE   {: System.out.println("Parsed key_3 ::= DATATYPE"); :}
-         |           {: System.out.println("Parsed key_3 ::= epsilon "); :}
+// Statement rules, including class, function, and variable declarations
+Stmt ::= VarDecl {: System.out.println("Parsed Stmt ::= VarDecl"); :}
+         | IF PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
+         | WHILE PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
+         | FuncDecl {: System.out.println("Parsed Stmt ::= FuncDecl"); :}
+         | ClassDecl {: System.out.println("Parsed Stmt ::= ClassDecl"); :}
          ;
 
-//right hand size of a declaration.
-initialize ::= ASSIGN valueAssign SEMI_COLON  {:System.out.println("Parsed initialize ::= ASSIGN valueAssign SEMI_COLON");:}
-                | SEMI_COLON    {:System.out.println("Parsed initialize ::= SEMI_COLON");:}
-                ;
+// Class Declaration
+ClassDecl ::= CLASS IDENTIFIER PUNCTUATION_CURLED_LEFT ClassBody PUNCTUATION_CURLED_RIGHT
+  {:
 
+  :}
+  ;
+
+// Class Body
+ClassBody ::= ClassBody ClassMember
+            | {: System.out.println("Parsed empty ClassBody"); :}
+            ;
+
+// Class Member (variables or functions)
+ClassMember ::= VarDecl {: System.out.println("Parsed ClassMember ::= Variable Declaration"); :}
+              | FuncDecl {: System.out.println("Parsed ClassMember ::= FuncDecl"); :}
+              ;
+
+// Variable Declaration
+VarDecl ::= DATATYPE IDENTIFIER initialize
+  {:
+    System.out.println("Parsed VarDecl ::= DATATYPE IDENTIFIER initialize");
+  :}
+  ;
+
+// Right-hand side of variable declaration (assignment or empty initialization)
+initialize ::= ASSIGN valueAssign SEMI_COLON  {: System.out.println("Parsed initialize ::= ASSIGN valueAssign SEMI_COLON"); :}
+             | SEMI_COLON    {: System.out.println("Parsed initialize ::= SEMI_COLON"); :}
+             ;
+
+// Value assignment
 valueAssign ::= IDENTIFIER multipleAssign  {:System.out.println("Parsed valueAssign ::= multipleAssign");:}
-                | STRING_LITERAL  {:System.out.println("Parsed valueAssign ::=  STRING_LITERAL");:}
-                | OPERATOR_LESS DATATYPE OPERATOR_GREATER PUNCTUATION_SQUARE_LEFT Expr PUNCTUATION_SQUARE_RIGHT {:
-                System.out.println("Parsed valueAssign ::= OPERATOR_LESS DATATYPE OPERATOR_GREATER PUNCTUATION_SQUARE_LEFT Expr PUNCTUATION_SQUARE_RIGHT");
-                :}
-                | Expr  {:System.out.println("Parsed valueAssign ::= Expr");:}
-                | condition  {:System.out.println("Parsed valueAssign ::= condition");:}
-                ;
+              | STRING_LITERAL  {:System.out.println("Parsed valueAssign ::= STRING_LITERAL");:}
+              | Expr  {:System.out.println("Parsed valueAssign ::= Expr");:}
+              | condition  {:System.out.println("Parsed valueAssign ::= condition");:}
+              ;
 
+// Multiple assignment
 multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER multipleAssign");:}
-                   | ASSIGN multiAssignValue {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");:}
-                   ;
+                 | ASSIGN multiAssignValue {:System.out.println("Parsed multipleAssign ::= ASSIGN IDENTIFIER ");:}
+                 ;
 
+// Function Declaration
+FuncDecl ::= DATATYPE IDENTIFIER PUNCTUATION_LEFT ParamList PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
+  {:
 
-multiAssignValue ::= IDENTIFIER  {:System.out.println("Parsed multiAssignValue ::= IDENTIFIER");:}
-                    | CONSTANT  {:System.out.println("Parsed multiAssignValue ::= CONSTANT");:}
-                    | FLOAT  {:System.out.println("Parsed multiAssignValue ::= FLOAT");:}
-                    | STRING_LITERAL  {:System.out.println("Parsed multiAssignValue ::= STRING_LITERAL");:}
-                    | condition  {:System.out.println("Parsed valueAssign ::= condition");:}
-                    ;
+  :};
 
+// Parameter List in Function Declaration
+ParamList ::= ParamList PUNCTUATION_COMMA Param
+            | Param
+            | {: System.out.println("Parsed empty ParamList"); :};
+
+Param ::= DATATYPE IDENTIFIER {: System.out.println("Parsed Param ::= DATATYPE IDENTIFIER"); :}
+        ;
+
+// Function Call
+Expr ::= IDENTIFIER PUNCTUATION_LEFT ArgList PUNCTUATION_RIGHT
+       {: System.out.println("Parsed Function Call"); :}
+       ;
+
+// Argument List in Function Call
+ArgList ::= ArgList PUNCTUATION_COMMA Expr
+          | Expr
+          | {: System.out.println("Parsed empty ArgList"); :}
+          ;
+
+// Expression rules
 Expr ::= Expr OPERATOR_ADD Term {:System.out.println("Parsed Expr: Expr OPERATOR_ADD Term");:}
        | Expr OPERATOR_SUB Term {:System.out.println("Parsed Expr: Expr OPERATOR_SUB Term");:}
        | Term {:System.out.println("Parsed Expr: Term");:}
        ;
 
+// Term rules
 Term ::= Term OPERATOR_MUL Factor {:System.out.println("Parsed Term: Term OPERATOR_MUL Factor");:}
        | Term OPERATOR_DIV Factor {:System.out.println("Parsed Term: Term OPERATOR_DIV Factor");:}
        | Factor {:System.out.println("Parsed Term: Factor");:}
        ;
 
+// Factor rules
 Factor ::= CONSTANT {:System.out.println("Parsed Factor: CONSTANT");:}
          | IDENTIFIER {:System.out.println("Parsed Factor: IDENTIFIER");:}
          | FLOAT {:System.out.println("Parsed Factor: FLOAT");:}
-         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT");:}
+         | PUNCTUATION_LEFT Expr PUNCTUATION_RIGHT {:System.out.println("Parsed Factor: ( Expr )");:}
          ;
 
-
-// working with condtionals.
-condition ::= boolTerm   {:System.out.println("Parsedcondition ::= boolTerm  ");:}
-              | condition  OPERATOR_OR boolTerm {:System.out.println("Parsedcondition ::=  condition  OPERATOR_OR boolTerm");:}
+// Conditional expressions
+condition ::= boolTerm {:System.out.println("Parsed condition ::= boolTerm");:}
+              | condition OPERATOR_OR boolTerm {:System.out.println("Parsed condition ::= condition OPERATOR_OR boolTerm");:}
               ;
 
-
-boolTerm ::= boolFactor    {:System.out.println("Parsed boolTerm ::= boolFactor");:}
-            | boolTerm OPERATOR_AND boolFactor {:System.out.println("Parsed boolTerm ::=  boolTerm OPERATOR_AND boolFactor ");:}
+// Relational operators
+relationOp ::= OPERATOR_NOT_EQUAL {:System.out.println("Parsed relationOp ::= OPERATOR_NO"); :}
             ;
-
-boolFactor ::=  TRUE  {:System.out.println("Parsed boolFactor ::=   TRUE");:}
-               | FALSE  {:System.out.println("Parsed boolFactor ::=  FALSE");:}
-               | OPERATOR_NOT   {:System.out.println("Parsed boolFactor ::=  OPERATOR_NOT");:}
-               | PUNCTUATION_LEFT condition PUNCTUATION_RIGHT   {:System.out.println("Parsed boolFactor ::= PUNCTUATION_LEFT condition PUNCTUATION_RIGHT");:}
-               | Expr relationOp Expr   {:System.out.println("Parsed boolFactor ::= Expr relationOp Expr ");:}
-               ;
-
-
-relationOp ::=   OPERATOR_NOT_EQUAL  {:System.out.println("Parsed relationOp ::=  OPERATOR_NOT_EQUAL");:}
-               | OPERATOR_GREATER   {:System.out.println("Parsed relationOp ::=  OPERATOR_GREATER ");:}
-               | OPERATOR_LESS  {:System.out.println("Parsed relationOp ::=  OPERATOR_LESS");:}
-               | OPERATOR_GREATER_EQUAL {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
-               | OPERATOR_LESS_EQUAL    {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
-               | OPERATOR_EQUAL {:System.out.println("Parsed relationOp ::=   OPERATOR_NOT_EQUAL");:}
-               ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
