@@ -1,6 +1,7 @@
 package red.stevo.code.Lexer;
 
 import java_cup.runtime.*;
+import java.util.ArrayList;
 
 parser code {:
   private ZaraLexer scanner;
@@ -36,54 +37,50 @@ start with StmtList;
 
 //program execution starts here.
 //errors are detected and handled here.
-StmtList ::= StmtList Stmt {:
-    result = new ArrayList<>();
-    result.addAll((ArrayList) $1);
-    result.add($2);
-:}
-           |  {:
-    // Empty statement list
-    result = new ArrayList<>();
-    :}
-           | error SEMI_COLON  {:
-    // Handle error
-    System.err.println("Error: Unexpected semicolon.");
-    result = null;
-    :}
-           | error PUNCTUATION_CURLED_RIGHT  {:
-    // Handle error
+StmtList ::= StmtList Stmt
+         {:
+            result = new ArrayList<>();
+            result.addAll((ArrayList) $1);
+            result.add($2);
+        :}
+           |
+           {:result = new ArrayList<>();:}
+           | error SEMI_COLON
+           {:
+            System.err.println("Error: Unexpected semicolon.");
+            result = null;
+            :}
+           | error PUNCTUATION_CURLED_RIGHT
+             {:
     System.err.println("Error: Unexpected curly right bracket.");
     result = null;
     :}
-           ;
 
-// Statement rules, including class, function, and variable declarations
+
 Stmt ::= VarDecl {:
-    // Process variable declaration
     result = $1;
     :}
-         | IF PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT {:
-    // Process if statement
-    result = new IfStmt($3, (ArrayList) $5);
-    :}
-         | WHILE PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT {:
-    // Process while loop
-    result = new WhileStmt($3, (ArrayList) $5);
-    :}
-         | FuncDecl {:
-    // Process function declaration
-    result = $1;
-    :}
-         | ClassDecl {:
-    // Process class declaration
-    result = $1;
-    :}
+         | IF PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
+         {:
+             result = new IfStmt($3, (ArrayList) $5);
+           :}
+         | WHILE PUNCTUATION_LEFT condition PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
+         {:
+                result = new WhileStmt($3, (ArrayList) $5);
+        :}
+         | FuncDecl
+         {:
+         result = $1;
+            :}
+         | ClassDecl
+         {:
+            result = $1;
+          :}
          ;
 
 // Class Declaration
 ClassDecl ::= CLASS IDENTIFIER PUNCTUATION_CURLED_LEFT ClassBody PUNCTUATION_CURLED_RIGHT
   {:
-    // Create a class node in AST
     result = new ClassDeclNode($2, (ArrayList) $4);
   :}
   ;
@@ -91,96 +88,90 @@ ClassDecl ::= CLASS IDENTIFIER PUNCTUATION_CURLED_LEFT ClassBody PUNCTUATION_CUR
 // Class Body
 ClassBody ::= ClassBody ClassMember
             {:
-    // Add class member to body
-    result = new ArrayList<>();
-    ((ArrayList) $1).add($2);
-  :}
-            | {:
-    // Empty class body
-    result = new ArrayList<>();
-    :}
+        result = new ArrayList<>();
+        ((ArrayList) $1).add($2);
+            :}
+            |
+            {:
+                result = new ArrayList<>();
+             :}
             ;
 
 // Class Member (variables or functions)
-ClassMember ::= VarDecl {:
-    // Add variable declaration as a class member
-    result = $1;
-  :}
-              | FuncDecl {:
-    // Add function declaration as a class member
-    result = $1;
-  :}
+ClassMember ::= VarDecl
+            {:
+                result = $1;
+            :}
+              | FuncDecl
+              {:
+                result = $1;
+            :}
               ;
 
 // Variable Declaration
 VarDecl ::= DATATYPE IDENTIFIER initialize
   {:
-    // Create variable declaration node
     result = new VarDeclNode($1, $2, $3);
   :}
   ;
 
 // Right-hand side of variable declaration (assignment or empty initialization)
 initialize ::= ASSIGN valueAssign SEMI_COLON  {:
-    // Handle assignment during initialization
     result = new Assignment($2);
   :}
              | SEMI_COLON    {:
-    // Empty initialization (uninitialized variable)
     result = null;
   :}
              ;
 
 // Value assignment
-valueAssign ::= IDENTIFIER multipleAssign  {:
-    // Handle multiple assignment
-    result = new MultipleAssignment($1, $2);
-  :}
-              | STRING_LITERAL  {:
-    // Handle string literal assignment
-    result = new StringLiteral($1);
-  :}
-              | Expr  {:
-    // Handle expression assignment
-    result = $1;
-  :}
-              | condition  {:
-    // Handle condition assignment
-    result = $1;
-  :}
+valueAssign ::= IDENTIFIER multipleAssign
+        {:
+            result = new MultipleAssignment($1, $2);
+          :}
+              | STRING_LITERAL
+               {:
+                    result = new StringLiteral($1);
+                :}
+              | Expr
+              {:
+                result = $1;
+              :}
+              | condition
+              {:
+                  result = $1;
+              :}
               ;
 
 // Multiple assignment
-multipleAssign ::= ASSIGN IDENTIFIER multipleAssign {:
-    // Handle assignment to identifier and another assignment
-    result = new MultipleAssign($2, $3);
-  :}
-                 | ASSIGN multiAssignValue {:
-    // Handle multiple value assignment
-    result = $2;
-  :}
+multipleAssign ::= ASSIGN IDENTIFIER multipleAssign
+            {:
+                result = new MultipleAssign($2, $3);
+
+            :}
+                 | ASSIGN multiAssignValue
+                 {:
+                    result = $2;
+                :}
                  ;
 
 // Function Declaration
 FuncDecl ::= DATATYPE IDENTIFIER PUNCTUATION_LEFT ParamList PUNCTUATION_RIGHT PUNCTUATION_CURLED_LEFT StmtList PUNCTUATION_CURLED_RIGHT
   {:
-    // Create function declaration node
     result = new FuncDeclNode($1, $2, (ArrayList) $4, (ArrayList) $6);
   :};
 
 // Parameter List in Function Declaration
 ParamList ::= ParamList PUNCTUATION_COMMA Param
             {:
-    // Add parameter to the list
-    result = new ArrayList<>();
-    ((ArrayList) $1).add($3);
-  :}
+                result = new ArrayList<>();
+                ((ArrayList) $1).add($3);
+            :}
             | Param
             {:
-    // Single parameter
-    result = new ArrayList<>();
-    result.add($1);
-  :}
+            result = new ArrayList<>();
+            result.add($1);
+          :}
             | {:
     // Empty parameter list
     result = new ArrayList<>();
